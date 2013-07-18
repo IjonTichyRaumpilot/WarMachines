@@ -77,18 +77,16 @@ public class Eingabe {
 		
 		switch (richtung) {
 		case 1:
-			ausrichtung = Ausrichtung.X;
+			ausrichtung = Ausrichtung.XPLUS;
 			break;
 		case -1:
-			ausrichtung = Ausrichtung.X;
-			// ausrichtung = Ausrichtung.-X;
+			ausrichtung = Ausrichtung.XMINUS;
 			break;
 		case 2:
-			ausrichtung = Ausrichtung.Y;
+			ausrichtung = Ausrichtung.YPLUS;
 			break;
 		case -2:
-			ausrichtung = Ausrichtung.Y;
-			// ausrichtung = Ausrichtung.-Y;
+			ausrichtung = Ausrichtung.YMINUS;
 			break;
 		default:
 			// ausrichtung = null;
