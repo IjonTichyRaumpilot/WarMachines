@@ -8,7 +8,7 @@ public class Ausgabe {
 	
 	
 	/**
-	 * Privater Konstruktor verhindert externe Erstellung
+	 * Privater Konstruktor verhindert externe Erstellung (Singleton)
 	 */
 	private Ausgabe(){}
 
@@ -23,6 +23,9 @@ public class Ausgabe {
 		return ausgabe;
 	}
 	
+	/**
+	 * Mache eine Seperationszeile zwischen den Textausgaben.
+	 */
 	public void printSeparator() {
 		
 		System.out.println("------------------------"
