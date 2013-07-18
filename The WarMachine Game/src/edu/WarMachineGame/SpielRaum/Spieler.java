@@ -5,13 +5,22 @@ import edu.WarMachineGame.IO.Eingabe;
 
 public class Spieler {
 
+	// --------- VARIABLES --------- //
 	private String name;
 	private SpielFeld spielfeld;
 	private Eingabe eingabe;
+	private final int SpielFeldDimX = 10;
+	private final int SpielFeldDimY = 10;
+	// ----------------------------- //
 	
+	
+	/**
+	 * Erstellt einen Spieler mit dem angegebenen Namen.
+	 * @param String name
+	 */
 	public Spieler(String name) {
 		this.name = name;
-		this.spielfeld = new SpielFeld(7,7);
+		this.spielfeld = new SpielFeld(SpielFeldDimX,SpielFeldDimY);
 		this.eingabe = new Eingabe();
 	}
 	
@@ -20,15 +29,24 @@ public class Spieler {
 	}
 	
 	/**
+	 * Platziere die Schiffe auf dem Spielfeld
+	 * @return
+	 */
+	public void place(){
+		
+		
+	}
+	
+	/**
 	 * Schieße auf ein Feld des Spielers
 	 * @return
 	 */
-	public int shoot(){
+	public void shoot(){
 		
 		boolean invalidInput = true;
 		String input = null;
 		
-		System.out.println(this.getName() +" ,geben sie das Ziel an: x,y\n");
+		System.out.println(this.getName() +", geben sie das Ziel an: x,y\n");
 		
 		// Einleseschleife
 		while(invalidInput){
@@ -45,11 +63,11 @@ public class Spieler {
 			}
 			invalidInput = false;
 			
-			System.out.println(zielKoordinate.getX() + " und " + zielKoordinate.getY());
-			
-			System.exit(0); // DebugEXIT
 		}
-		return 0;
+		
+		
+		System.exit(0); // DebugEXIT
+
 	}
 	
 }

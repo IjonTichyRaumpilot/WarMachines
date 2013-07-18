@@ -22,16 +22,14 @@ public class Eingabe {
 
 		String[] arguments =  input.split(",");
 		
-		// Check Input
-		if(arguments.length < 2) {
-			return null;
-		}
-		
 		try {
 			x = Integer.parseInt(arguments[0]);
 			y = Integer.parseInt(arguments[1]);
 		} catch (Exception e) {
-			// Nothing
+			// Sieht doppelt gemoppelt aus, 
+			// ist es aber nicht.
+			x = -1;
+			y = -1;
 		}
 
 		Koordinate koord = new Koordinate(x,y);
@@ -41,7 +39,7 @@ public class Eingabe {
 	
 	
 	/**
-	 * Diese Funktion liest den User-Input von der Eingabezeile
+	 * Diese Funktion liest den User-Input von der Eingabezeile.
 	 * @return String
 	 * @throws IOException
 	 */
@@ -51,17 +49,23 @@ public class Eingabe {
 		return input;
 	}
 	
+	
+	/**
+	 * Ueberprueft, ob die Koordinate auf dem Spielfeld liegt.
+	 * @param Koordinate
+	 * @param SpielFeld
+	 * @return boolean
+	 */
 	public boolean ValidKoordinaten(Koordinate koord, SpielFeld spielfeld){
 		
-		if(!((0 <= koord.getX())
+		if((0 <= koord.getX())
 			    &&(koord.getX() <= spielfeld.getDimensionX())
 			    &&(0 <= koord.getY())
-			    &&(koord.getY() <= spielfeld.getDimensionY()))) {
-				System.out.println("valid");
+			    &&(koord.getY() <= spielfeld.getDimensionY())) {
+			
 				return true;
 			}
 		
-		System.out.println("invalid");
 		return false;
 	}
 	
