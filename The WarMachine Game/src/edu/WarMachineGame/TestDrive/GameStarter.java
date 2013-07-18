@@ -11,14 +11,14 @@ public class GameStarter {
 		
 
 		System.out.println("/===============================================\\\n"
-				+ "|-Wilkommen zu WAR-MACHINES (Schiffe versenken)-|\n"
+				+ "| Wilkommen zu WAR-MACHINES (Schiffe versenken) |\n"
 				+ "\\===============================================/");
 		
 		// Init Players
 		Spieler spieler1 = new Spieler("Spieler1");
 		Spieler spieler2 = new Spieler("Spieler2");
 		
-		spieler1.shoot();
+		spieler1.place();
 		
 	}
 
