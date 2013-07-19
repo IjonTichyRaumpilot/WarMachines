@@ -10,8 +10,6 @@ public class Spieler {
 	private SpielFeld spielfeld;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
-	private final int SpielFeldDimX = 10;
-	private final int SpielFeldDimY = 10;
 	// ----------------------------- //
 	
 	
@@ -21,7 +19,7 @@ public class Spieler {
 	 */
 	public Spieler(String name) {
 		this.name = name;
-		this.spielfeld = new SpielFeld(SpielFeldDimX,SpielFeldDimY);
+		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
 	}
