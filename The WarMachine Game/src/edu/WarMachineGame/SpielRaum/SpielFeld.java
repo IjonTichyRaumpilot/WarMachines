@@ -54,7 +54,6 @@ public class SpielFeld implements Observer, shootElement, placeWarMachine {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		
 	}
 
