@@ -1,8 +1,11 @@
 package edu.WarMachineGame.SpielRaum;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import edu.WarMachineGame.WarMachines.WarMachine;
 
-public class SpielFeld implements shootElement, placeWarMachine {
+public class SpielFeld implements Observer, shootElement, placeWarMachine {
 
 	private Element[][] elements;
 
@@ -35,11 +38,9 @@ public class SpielFeld implements shootElement, placeWarMachine {
 	public boolean validKoordinaten(Koordinate koord) {
 
 		if ((0 <= koord.getX())
-				&& (koord.getX() <= Regeln.getSpielFeldGroesse()
-						.getX())
+				&& (koord.getX() <= Regeln.getSpielFeldGroesse().getX())
 				&& (0 <= koord.getY())
-				&& (koord.getY() <= Regeln.getSpielFeldGroesse()
-						.getY())) {
+				&& (koord.getY() <= Regeln.getSpielFeldGroesse().getY())) {
 
 			return true;
 		}
@@ -49,6 +50,12 @@ public class SpielFeld implements shootElement, placeWarMachine {
 
 	public void updateSpielFeld() {
 		System.out.println("BLABLA");
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

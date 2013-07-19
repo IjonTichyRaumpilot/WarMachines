@@ -10,12 +10,14 @@ public class Spieler {
 	private SpielFeld spielfeld;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
+
 	// ----------------------------- //
-	
-	
+
 	/**
 	 * Erstellt einen Spieler mit dem angegebenen Namen.
-	 * @param String name
+	 * 
+	 * @param String
+	 *            name
 	 */
 	public Spieler(String name) {
 		this.name = name;
@@ -23,87 +25,99 @@ public class Spieler {
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Platziere die Schiffe auf dem Spielfeld
+	 * 
 	 * @return
 	 */
-	public void place(){
-		
+	public void place() {
+
 		boolean invalidInput = true;
 		String input = null;
 		Koordinate platzKoordinate = null;
 		Ausrichtung platzAusrichtung = null;
-		
+
 		ausgabe.printSeparator();
-		System.out.println(this.getName() + ", platzieren sie ihre Schiffe(Laenge).\n"
-		        + "Geben sie dazu zuerst die Koordinate(x,y) für das Schiff an\n"
-		        + "und danach die Ausrichtung, wobei:\n"
-				+ "nach rechts  =  1\n"
-				+ "nach links   = -1\n"
-				+ "nach oben    =  2\n"
-				+ "nach unten   = -2");
+		System.out
+				.println(this.getName()
+						+ ", platzieren sie ihre Schiffe(Laenge).\n"
+						+ "Geben sie dazu zuerst die Koordinate(x,y) für das Schiff an\n"
+						+ "und danach die Ausrichtung, wobei:\n"
+						+ "nach rechts  =  1\n" + "nach links   = -1\n"
+						+ "nach oben    =  2\n" + "nach unten   = -2");
 		ausgabe.printSeparator();
-		
-		System.out.println(this.getName() +", platzieren sie das erste Schiff(1): x,y,Richtung");
-		
-		while(invalidInput) {
+
+		System.out.println(this.getName()
+				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
+
+		while (invalidInput) {
 			try {
 				input = eingabe.getUserInput();
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
+			}
 			String[] argumente = input.split(",");
-			if(argumente.length < 3) {
+			if (argumente.length < 3) {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 				continue;
 			}
-			platzKoordinate = eingabe.string2Koord(argumente[0].toString()+","+argumente[1].toString());
+			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
+					+ "," + argumente[1].toString());
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
-			
-			// invalidInput = !spielfeld.platziere(WarMachine schiff1, Koordinate koord, Ausrichtung ausrichtung);
-			if(invalidInput) {
+
+			// invalidInput = !spielfeld.platziere(WarMachine schiff1,
+			// Koordinate koord, Ausrichtung ausrichtung);
+			if (invalidInput) {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 			}
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * Schieße auf ein Feld des Spielers.
+	 * 
 	 * @return
 	 */
-	public void shoot(){
-		
+	public void shoot() {
+
 		boolean invalidInput = true;
 		String input = null;
-		
-		System.out.println(this.getName() +", geben sie das Ziel an: x,y");
-		
+
+		System.out.println(this.getName() + ", geben sie das Ziel an: x,y");
+
 		// Einleseschleife
-		while(invalidInput){
+		while (invalidInput) {
 			try {
 				input = eingabe.getUserInput();
 			} catch (Exception e) {
 				e.printStackTrace();
-			}	
-			
+			}
+
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
-			if(!spielfeld.validKoordinaten(zielKoordinate)) {
+			if (!spielfeld.validKoordinaten(zielKoordinate)) {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 				continue;
 			}
 			invalidInput = false;
 		} // invalidInput
-		
+
 		System.out.println("DebugExit");
 		System.exit(0); // DebugEXIT
 
 	}
-	
+
+	public void updateSpielFeld() {
+		this.spielfeld.updateSpielFeld();
+	}
+
+	public void printStatus() {
+
+	}
+
 }

@@ -4,6 +4,7 @@ public class Regeln {
 
 	private static Regeln regeln;
 	private static Koordinate groesse;
+	private static boolean gameOver;
 
 	private Regeln() {
 	}
@@ -28,6 +29,11 @@ public class Regeln {
 	private static void setSpielFeldGroesse() {
 		groesse.setX(10);
 		groesse.setY(10);
+	}
+	
+	public static boolean isGameOver()
+	{
+		return gameOver;
 	}
 
 }
