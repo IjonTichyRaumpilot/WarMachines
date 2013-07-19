@@ -1,12 +1,12 @@
 Klassen für Constantin
 IO.Ausgabe
 IO.Eingabe
-SpielRaum.Ausrichtung
 SpielRaum.Regeln
 SpielRaum.Spieler
 
 
 Klassen für Arthur
+SpielRaum.Ausrichtung
 SpielRaum.Element
 SpielRaum.InvalidPlacementException
 SpielRaum.Koordinate
@@ -14,3 +14,4 @@ SpielRaum.placeWarMachine
 SpielRaum.shootElement
 SpielRaum.SpielFeld
 SpielRaum.WarMachine
+

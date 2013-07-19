@@ -21,7 +21,7 @@ public class SpielFeld implements Observer, shootElement, placeWarMachine {
 
 	public void place(WarMachine warMachine, Koordinate koord,
 			Ausrichtung ausrichtung) throws InvalidPlacementException {
-
+		
 	}
 
 	public void shoot(Koordinate koord) {

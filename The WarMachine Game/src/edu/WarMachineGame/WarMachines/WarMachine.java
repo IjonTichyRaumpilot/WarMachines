@@ -18,7 +18,7 @@ public abstract class WarMachine extends Observable {
 	private boolean versenkt;
 
 
-	public WarMachine(Koordinate koord, Ausrichtung ausrichtung) {
+	public WarMachine() {
 		
 	}
 
