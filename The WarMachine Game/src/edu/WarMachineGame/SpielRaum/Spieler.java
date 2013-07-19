@@ -55,7 +55,7 @@ public class Spieler {
 
 		System.out.println(this.getName()
 				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
-
+		warMachine.add(platziereWarMachine(new Schlauchboot()));
 		
 	}
 
@@ -100,12 +100,13 @@ public class Spieler {
 
 	}
 	
-	private void platziereWarMachine(WarMachine warMachine) {
+	private WarMachine platziereWarMachine(WarMachine warMachine) {
 		
 		boolean invalidInput = true;
 		String input = null;
 		Koordinate platzKoordinate = null;
 		Ausrichtung platzAusrichtung = null;
+		WarMachine newShip = null;
 		
 		while (invalidInput) {
 			try {
@@ -127,6 +128,8 @@ public class Spieler {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 			}
 		} // while invalid Input
+		
+		return newShip;
 	}
 
 }
