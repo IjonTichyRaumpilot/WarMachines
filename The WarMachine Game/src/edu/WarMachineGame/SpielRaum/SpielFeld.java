@@ -2,7 +2,7 @@ package edu.WarMachineGame.SpielRaum;
 
 import edu.WarMachineGame.WarMachines.WarMachine;
 
-public class SpielFeld {
+public class SpielFeld implements shootElement, placeWarMachine{
 
 	private int dimensionX;
 	private int dimensionY;
@@ -27,9 +27,13 @@ public class SpielFeld {
 		return dimensionY;
 	}
 
-	public void placeWarMachine(WarMachine warMachine, Koordinate koord,
+	public void place(WarMachine warMachine, Koordinate koord,
 			Ausrichtung ausrichtung) throws InvalidPlacementException {
 
+	}
+	
+	public void shoot(Koordinate koord) {
+		
 	}
 
 }
