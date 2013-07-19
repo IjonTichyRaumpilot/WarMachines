@@ -35,5 +35,24 @@ public class SpielFeld implements shootElement, placeWarMachine{
 	public void shoot(Koordinate koord) {
 		
 	}
+	
+	/**
+	 * Ueberprueft, ob die Koordinate auf dem Spielfeld liegt.
+	 * @param Koordinate
+	 * @param SpielFeld
+	 * @return boolean
+	 */
+	public boolean validKoordinaten(Koordinate koord){
+		
+		if((0 <= koord.getX())
+			    &&(koord.getX() <= this.getDimensionX())
+			    &&(0 <= koord.getY())
+			    &&(koord.getY() <= this.getDimensionY())) {
+			
+				return true;
+			}
+		
+		return false;
+	}
 
 }

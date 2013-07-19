@@ -108,24 +108,7 @@ public class Eingabe {
 	}
 	
 	
-	/**
-	 * Ueberprueft, ob die Koordinate auf dem Spielfeld liegt.
-	 * @param Koordinate
-	 * @param SpielFeld
-	 * @return boolean
-	 */
-	public boolean validKoordinaten(Koordinate koord, SpielFeld spielfeld){
-		
-		if((0 <= koord.getX())
-			    &&(koord.getX() <= spielfeld.getDimensionX())
-			    &&(0 <= koord.getY())
-			    &&(koord.getY() <= spielfeld.getDimensionY())) {
-			
-				return true;
-			}
-		
-		return false;
-	}
+	
 	
 	/**
 	 * Ueberprueft, ob die Ausrichtung valide ist. Gibt True für OK

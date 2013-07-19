@@ -96,7 +96,7 @@ public class Spieler {
 			}	
 			
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
-			if(!eingabe.validKoordinaten(zielKoordinate, spielfeld)) {
+			if(!spielfeld.validKoordinaten(zielKoordinate)) {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 				continue;
 			}
