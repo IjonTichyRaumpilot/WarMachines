@@ -24,16 +24,18 @@ public class GameStarter {
 		Spieler spieler1 = new Spieler("Spieler1");
 		Spieler spieler2 = new Spieler("Spieler2");
 		
+		// Platziere Schiffe
 		spieler1.place();
 		spieler2.place();
 		
+		// Spielschleife
 		while(!regeln.isGameOver()){
 			spieler1.shoot();
-			spieler1.updateSpielFeld();
+			spieler1.printSpielFeld();
 			if(regeln.isGameOver())
 				break;
 			spieler2.shoot();
-			spieler2.updateSpielFeld();
+			spieler2.printSpielFeld();
 		}
 		
 		spieler1.printStatus();

@@ -5,6 +5,8 @@ import java.util.List;
 
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.WarMachines.Fregatte;
+import edu.WarMachineGame.WarMachines.Kreuzer;
 import edu.WarMachineGame.WarMachines.Schlauchboot;
 import edu.WarMachineGame.WarMachines.WarMachine;
 
@@ -12,11 +14,11 @@ public class Spieler {
 
 	// --------- VARIABLES --------- //
 	private String name;
-	private SpielFeld spielfeld;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
+	private boolean verloren = false;
+	private SpielFeld spielfeld;
 	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
-
 	// ----------------------------- //
 
 	/**
@@ -53,9 +55,13 @@ public class Spieler {
 						+ "nach oben    =  2\n" + "nach unten   = -2");
 		ausgabe.printSeparator();
 
-		System.out.println(this.getName()
-				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
+		System.out.println(this.getName()+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Schlauchboot()));
+		System.out.println(this.getName()+ ", platzieren sie das zweite Schiff(2): x,y,Richtung");
+		warMachine.add(platziereWarMachine(new Fregatte()));
+		System.out.println(this.getName()+ ", platzieren sie das dritte Schiff(3): x,y,Richtung");
+		warMachine.add(platziereWarMachine(new Kreuzer()));
+		
 		
 	}
 
@@ -92,12 +98,12 @@ public class Spieler {
 
 	}
 
-	public void updateSpielFeld() {
+	public void printSpielFeld() {
 		this.spielfeld.updateSpielFeld();
 	}
 
 	public void printStatus() {
-
+		
 	}
 	
 	private WarMachine platziereWarMachine(WarMachine warMachine) {
@@ -106,7 +112,7 @@ public class Spieler {
 		String input = null;
 		Koordinate platzKoordinate = null;
 		Ausrichtung platzAusrichtung = null;
-		WarMachine newShip = null;
+		WarMachine newWarMachine = null;
 		
 		while (invalidInput) {
 			try {
@@ -123,13 +129,16 @@ public class Spieler {
 					+ "," + argumente[1].toString());
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
 
-			// invalidInput = !spielfeld.platziere(WarMachine schiff1,Koordinate koord, Ausrichtung ausrichtung);
-			if (invalidInput) {
+			try {
+				spielfeld.place(newWarMachine, platzKoordinate, platzAusrichtung);
+				invalidInput = false;
+			} catch (Exception e) {
 				System.out.println("Falsche Eingabe, bitte nochmal.");
 			}
+			
 		} // while invalid Input
 		
-		return newShip;
+		return newWarMachine;
 	}
 
 }
