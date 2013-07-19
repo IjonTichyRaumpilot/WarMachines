@@ -35,8 +35,12 @@ public class Regeln {
 		groesse.setY(10);
 	}
 	
-	private static void setAnzahlWarMachines(){
+	private static void setAnzahlWarMachines() {
 		anzahlWarMachine = 3;
+	}
+	
+	public static int getAnzahlWarMachines() {
+		return anzahlWarMachine;
 	}
 	
 	public static boolean isGameOver()

@@ -1,7 +1,11 @@
 package edu.WarMachineGame.SpielRaum;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.WarMachines.Schlauchboot;
 import edu.WarMachineGame.WarMachines.WarMachine;
 
 public class Spieler {
@@ -11,7 +15,8 @@ public class Spieler {
 	private SpielFeld spielfeld;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
-	private WarMachine[] warMachine;
+	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
+
 	// ----------------------------- //
 
 	/**
@@ -38,11 +43,6 @@ public class Spieler {
 	 */
 	public void place() {
 
-		boolean invalidInput = true;
-		String input = null;
-		Koordinate platzKoordinate = null;
-		Ausrichtung platzAusrichtung = null;
-
 		ausgabe.printSeparator();
 		System.out
 				.println(this.getName()
@@ -56,31 +56,7 @@ public class Spieler {
 		System.out.println(this.getName()
 				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
 
-		for (int ii = 0; ii < 3; ii++) {
-			
-			while (invalidInput) {
-				try {
-					input = eingabe.getUserInput();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				String[] argumente = input.split(",");
-				if (argumente.length < 3) {
-					System.out.println("Falsche Eingabe, bitte nochmal.");
-					continue;
-				}
-				platzKoordinate = eingabe.string2Koord(argumente[0].toString()
-						+ "," + argumente[1].toString());
-				platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
-
-				// invalidInput = !spielfeld.platziere(WarMachine schiff1,
-				// Koordinate koord, Ausrichtung ausrichtung);
-				if (invalidInput) {
-					System.out.println("Falsche Eingabe, bitte nochmal.");
-				}
-			} // while invalid Input
-		} // for all WarMachines
-
+		
 	}
 
 	/**
@@ -121,7 +97,36 @@ public class Spieler {
 	}
 
 	public void printStatus() {
+
+	}
+	
+	private void platziereWarMachine(WarMachine warMachine) {
 		
+		boolean invalidInput = true;
+		String input = null;
+		Koordinate platzKoordinate = null;
+		Ausrichtung platzAusrichtung = null;
+		
+		while (invalidInput) {
+			try {
+				input = eingabe.getUserInput();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String[] argumente = input.split(",");
+			if (argumente.length < 3) {
+				System.out.println("Falsche Eingabe, bitte nochmal.");
+				continue;
+			}
+			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
+					+ "," + argumente[1].toString());
+			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
+
+			// invalidInput = !spielfeld.platziere(WarMachine schiff1,Koordinate koord, Ausrichtung ausrichtung);
+			if (invalidInput) {
+				System.out.println("Falsche Eingabe, bitte nochmal.");
+			}
+		} // while invalid Input
 	}
 
 }
