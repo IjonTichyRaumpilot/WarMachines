@@ -1,9 +1,7 @@
 package edu.WarMachineGame.SpielRaum;
 
-public abstract class Spielerstatus {
+public interface Spielerstatus {
 	
-	public String printSpielerstatus() {
-		return null;
-	}
+	public String getSpielerstatus();
 	
 }

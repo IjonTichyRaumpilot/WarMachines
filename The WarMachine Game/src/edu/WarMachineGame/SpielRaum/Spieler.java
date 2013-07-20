@@ -16,8 +16,8 @@ public class Spieler {
 	private String name;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
-	private boolean verloren = false;
 	private SpielFeld spielfeld;
+	private Spielerstatus spielerstatus;
 	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
 	// ----------------------------- //
 
@@ -32,6 +32,7 @@ public class Spieler {
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
+		this.spielerstatus = new StatusGewonnen();
 	}
 
 	public String getName() {
@@ -87,14 +88,18 @@ public class Spieler {
 
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
 			if (!spielfeld.validKoordinaten(zielKoordinate)) {
-				System.out.println("Falsche Eingabe, bitte nochmal.");
+				ausgabe.printFalscheEingabe();
 				continue;
 			}
 			invalidInput = false;
+			// invalidInput = !spielfeld.shoot(zielKoordinate);
+			if(invalidInput) {
+				ausgabe.printFalscheEingabe();
+			}
+			
 		} // invalidInput
 
-		System.out.println("DebugExit");
-		System.exit(0); // DebugEXIT
+		
 
 	}
 
@@ -102,17 +107,29 @@ public class Spieler {
 		this.spielfeld.updateSpielFeld();
 	}
 
+	/**
+	 * Gibt den Spielerstatus nach dem Spiel aus. Der Spielerstatus
+	 * variiert, je nachdem ob er verloren oder gewonnen hat (Strategiemuster).
+	 */
 	public void printStatus() {
-		
-	}
+		for (WarMachine w : warMachine) {
+			// w.istVersenkt -> spielerstatus = new StatusVerloren();
+		}
+		System.out.println(this.getName() + " hat " + spielerstatus.getSpielerstatus()); 
+		}
 	
-	private WarMachine platziereWarMachine(WarMachine warMachine) {
+	/**
+	 * Platziert eine WarMachine auf dem Spielfeld. Gibt diese
+	 * WarMachine dann wieder zurück.
+	 * @param WarMachine
+	 * @return WarMachine
+	 */
+	private WarMachine platziereWarMachine(WarMachine newWarMachine) {
 		
 		boolean invalidInput = true;
 		String input = null;
 		Koordinate platzKoordinate = null;
 		Ausrichtung platzAusrichtung = null;
-		WarMachine newWarMachine = null;
 		
 		while (invalidInput) {
 			try {
@@ -122,7 +139,7 @@ public class Spieler {
 			}
 			String[] argumente = input.split(",");
 			if (argumente.length < 3) {
-				System.out.println("Falsche Eingabe, bitte nochmal.");
+				ausgabe.printFalscheEingabe();
 				continue;
 			}
 			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
@@ -133,7 +150,8 @@ public class Spieler {
 				spielfeld.place(newWarMachine, platzKoordinate, platzAusrichtung);
 				invalidInput = false;
 			} catch (Exception e) {
-				System.out.println("Falsche Eingabe, bitte nochmal.");
+				ausgabe.printFalscheEingabe();
+				invalidInput = true;
 			}
 			
 		} // while invalid Input

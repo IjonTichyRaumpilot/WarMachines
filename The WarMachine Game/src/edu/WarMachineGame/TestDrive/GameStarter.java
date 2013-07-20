@@ -1,7 +1,5 @@
 package edu.WarMachineGame.TestDrive;
 
-import java.io.ObjectInputStream.GetField;
-
 import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.Spieler;
 

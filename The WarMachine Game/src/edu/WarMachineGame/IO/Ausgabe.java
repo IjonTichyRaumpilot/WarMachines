@@ -33,4 +33,8 @@ public class Ausgabe {
 		
 	}
 	
+	public void printFalscheEingabe() {
+		System.out.println("Falsche Eingabe, bitte nochmal.");
+	}
+	
 }

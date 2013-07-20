@@ -1,10 +1,9 @@
 package edu.WarMachineGame.SpielRaum;
 
-public class StatusVerloren extends Spielerstatus {
+public class StatusVerloren implements Spielerstatus {
 
-	@Override
-	public String printSpielerstatus() {
-		return "hat verloren!";
+	public String getSpielerstatus() {
+		return "verloren!";
 	}
 
 	

@@ -1,7 +1,5 @@
 package edu.WarMachineGame.SpielRaum;
 
-import edu.WarMachineGame.WarMachines.WarMachine;
-
 public class Regeln {
 
 	private static Regeln regeln;
@@ -20,6 +18,8 @@ public class Regeln {
 	public static Regeln getRegeln() {
 		if (regeln == null) {
 			regeln = new Regeln();
+			groesse = new Koordinate(-1,-1);
+			gameOver = false;
 			setSpielFeldGroesse();
 			setAnzahlWarMachines();
 		}
