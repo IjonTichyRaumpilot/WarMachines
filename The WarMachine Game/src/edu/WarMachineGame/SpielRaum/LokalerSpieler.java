@@ -10,13 +10,12 @@ import edu.WarMachineGame.Interfaces.Spielerstatus;
 import edu.WarMachineGame.Spielerstatus.*;
 import edu.WarMachineGame.WarMachines.*;
 
-public class LokalerSpieler extends Spieler {
+public class LokalerSpieler implements Spieler {
 
 	// --------- VARIABLES --------- //
 	private String name;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
-	private boolean remote;
 	private Client client;
 	private SpielFeld spielfeld;
 	private Spielerstatus spielerstatus;
@@ -32,7 +31,6 @@ public class LokalerSpieler extends Spieler {
 	 */
 	public LokalerSpieler(String name) {
 		this.name = name;
-		this.remote = false;
 		this.client = new Client(1400);
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
@@ -40,21 +38,11 @@ public class LokalerSpieler extends Spieler {
 		this.spielerstatus = new StatusGewonnen();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#getName()
-	 */
 	@Override
 	public String getName() {
 		return this.name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#place()
-	 */
 	@Override
 	public void place() {
 
@@ -80,15 +68,8 @@ public class LokalerSpieler extends Spieler {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.WarMachineGame.SpielRaum.Spieler#shoot(edu.WarMachineGame.SpielRaum
-	 * .LokalerSpieler)
-	 */
 	@Override
-	public void shoot(LokalerSpieler gegner) {
+	public void shoot(Spieler gegner) {
 
 		boolean invalidInput = true;
 		String input = null;
@@ -119,13 +100,8 @@ public class LokalerSpieler extends Spieler {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#isGameOver()
-	 */
 	@Override
-	protected void isGameOver() {
+	public void isGameOver() {
 		boolean gameOver = true;
 		for (WarMachine w : warMachine) {
 			if (!w.isVersenkt())
@@ -135,11 +111,6 @@ public class LokalerSpieler extends Spieler {
 			Regeln.setGameOver();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#printSpielFeld()
-	 */
 	@Override
 	public void printSpielFeld() {
 		ausgabe.printSeparator();
@@ -147,11 +118,6 @@ public class LokalerSpieler extends Spieler {
 		this.spielfeld.updateSpielFeld(getName());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#printStatus()
-	 */
 	@Override
 	public void printStatus() {
 		boolean alleVersenkt = true;
@@ -165,15 +131,8 @@ public class LokalerSpieler extends Spieler {
 				+ spielerstatus.getSpielerstatus());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.WarMachineGame.SpielRaum.Spieler#platziereWarMachine(edu.WarMachineGame
-	 * .WarMachines.WarMachine)
-	 */
 	@Override
-	protected WarMachine platziereWarMachine(WarMachine newWarMachine) {
+	public WarMachine platziereWarMachine(WarMachine newWarMachine) {
 
 		boolean invalidInput = true;
 		String input = null;
@@ -213,11 +172,6 @@ public class LokalerSpieler extends Spieler {
 		return newWarMachine;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#getSpielfeld()
-	 */
 	@Override
 	public SpielFeld getSpielfeld() {
 		return spielfeld;

@@ -1,55 +1,23 @@
 package edu.WarMachineGame.SpielRaum;
 
-import edu.WarMachineGame.WarMachines.WarMachine;
+import edu.WarMachineGame.WarMachines.*;
 
-public abstract class Spieler {
+public interface Spieler {
 
-	public abstract String getName();
+	public String getName();
 
-	/**
-	 * Platziere die Schiffe auf dem Spielfeld
-	 * 
-	 * @return
-	 */
-	public abstract void place();
+	public void place();
 
-	/**
-	 * Schieße auf ein Feld des Spielers.
-	 * 
-	 * @return
-	 */
-	public abstract void shoot(LokalerSpieler gegner);
+	public void isGameOver();
 
-	/**
-	 * Checke, ob das Spiel GameOver ist
-	 */
-	protected abstract void isGameOver();
+	public void printSpielFeld();
 
-	/**
-	 * Gib das Spiefeld aus
-	 */
-	public abstract void printSpielFeld();
+	public void printStatus();
 
-	/**
-	 * Gibt den Spielerstatus nach dem Spiel aus. Der Spielerstatus variiert, je
-	 * nachdem ob er verloren oder gewonnen hat (Strategiemuster).
-	 */
-	public abstract void printStatus();
+	public WarMachine platziereWarMachine(WarMachine newWarMachine);
 
-	/**
-	 * Platziert eine WarMachine auf dem Spielfeld. Gibt diese WarMachine dann
-	 * wieder zurück.
-	 * 
-	 * @param WarMachine
-	 * @return WarMachine
-	 */
-	protected abstract WarMachine platziereWarMachine(WarMachine newWarMachine);
+	public SpielFeld getSpielfeld();
 
-	/**
-	 * Gib das Spielfeld zurueck.
-	 * 
-	 * @return Spielfeld
-	 */
-	public abstract SpielFeld getSpielfeld();
+	void shoot(Spieler gegner);
 
 }
