@@ -173,8 +173,7 @@ public class Spieler {
 				ausgabe.printFalscheEingabe();
 				continue;
 			}
-			
-			
+
 			try {
 				spielfeld.place(newWarMachine, platzKoordinate,
 						platzAusrichtung);

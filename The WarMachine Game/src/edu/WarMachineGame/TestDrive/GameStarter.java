@@ -18,6 +18,8 @@ public class GameStarter {
 		// Init Regeln
 		Regeln regeln = Regeln.getRegeln();
 
+		// Connection
+
 		// Init Players
 		Spieler spieler1 = new Spieler("Spieler1");
 		Spieler spieler2 = new Spieler("Spieler2");
