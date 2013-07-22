@@ -167,7 +167,12 @@ public class Spieler {
 			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
 					+ "," + argumente[1].toString());
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
-
+			if (!eingabe.validAusrichtung(platzAusrichtung)) {
+				ausgabe.printFalscheEingabe();
+				continue;
+			}
+			
+			
 			try {
 				spielfeld.place(newWarMachine, platzKoordinate,
 						platzAusrichtung);

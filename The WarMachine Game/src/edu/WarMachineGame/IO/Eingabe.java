@@ -89,7 +89,7 @@ public class Eingabe {
 			ausrichtung = Ausrichtung.YMINUS;
 			break;
 		default:
-			// ausrichtung = null;
+			ausrichtung = Ausrichtung.KEINE;
 			break;
 		}
 		
@@ -118,7 +118,7 @@ public class Eingabe {
 	 */
 	public boolean validAusrichtung(Ausrichtung ausrichtung)
 	{
-		if(ausrichtung == null) {
+		if(ausrichtung == Ausrichtung.KEINE) {
 			return false;
 		}
 		return true;
