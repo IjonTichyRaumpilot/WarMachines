@@ -2,7 +2,7 @@ package edu.WarMachineGame.IO;
 
 import java.io.*;
 
-import edu.WarMachineGame.SpielRaum.Ausrichtung;
+import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.SpielRaum.Koordinate;
 import edu.WarMachineGame.SpielRaum.SpielFeld;
 

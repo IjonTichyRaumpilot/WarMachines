@@ -1,29 +1,48 @@
 package edu.WarMachineGame.WarMachines;
 
-import java.awt.geom.IllegalPathStateException;
-import java.util.Observable;
-import java.util.Observer;
-
-import edu.WarMachineGame.SpielRaum.Ausrichtung;
-import edu.WarMachineGame.SpielRaum.InvalidPlacementException;
-import edu.WarMachineGame.SpielRaum.Koordinate;
+import edu.WarMachineGame.Exceptions.InvalidPlacementException;
 import edu.WarMachineGame.SpielRaum.SpielFeld;
 
-public abstract class WarMachine extends Observable {
+public abstract class WarMachine {
 
-	private int laenge;
-	private int breite;
-	private Koordinate koord;
-	private int hitCounter;
-	private boolean versenkt;
-
+	protected int laenge;
+	protected int breite;
+	protected int maxHits;
+	protected int hitCounter = 0;
 
 	public WarMachine() {
-		
+
 	}
 
-	public void setWarmachineElements(SpielFeld spielFeld) throws InvalidPlacementException {
-		
+	public void setWarmachineElements(SpielFeld spielFeld)
+			throws InvalidPlacementException {
+
+	}
+
+	public int getLaenge() {
+		return laenge;
+	}
+
+	public void setLaenge(int laenge) {
+		this.laenge = laenge;
+	}
+
+	public int getBreite() {
+		return breite;
+	}
+
+	public void setBreite(int breite) {
+		this.breite = breite;
+	}
+
+	public boolean isVersenkt() {
+		if (hitCounter < maxHits)
+			return false;
+		return true;
+	}
+
+	public void hit() {
+		hitCounter++;
 	}
 
 }

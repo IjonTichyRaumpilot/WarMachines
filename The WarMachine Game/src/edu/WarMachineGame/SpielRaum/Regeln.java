@@ -18,7 +18,7 @@ public class Regeln {
 	public static Regeln getRegeln() {
 		if (regeln == null) {
 			regeln = new Regeln();
-			groesse = new Koordinate(-1,-1);
+			groesse = new Koordinate(-1, -1);
 			gameOver = false;
 			setSpielFeldGroesse();
 			setAnzahlWarMachines();
@@ -34,18 +34,21 @@ public class Regeln {
 		groesse.setX(10);
 		groesse.setY(10);
 	}
-	
+
 	private static void setAnzahlWarMachines() {
 		anzahlWarMachine = 3;
 	}
-	
+
 	public static int getAnzahlWarMachines() {
 		return anzahlWarMachine;
 	}
-	
-	public static boolean isGameOver()
-	{
+
+	public static boolean isGameOver() {
 		return gameOver;
+	}
+
+	public static void setGameOver() {
+		gameOver = true;
 	}
 
 }

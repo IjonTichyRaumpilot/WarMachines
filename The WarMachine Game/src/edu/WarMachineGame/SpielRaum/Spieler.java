@@ -3,8 +3,10 @@ package edu.WarMachineGame.SpielRaum;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.Interfaces.Spielerstatus;
 import edu.WarMachineGame.WarMachines.Fregatte;
 import edu.WarMachineGame.WarMachines.Kreuzer;
 import edu.WarMachineGame.WarMachines.Schlauchboot;
@@ -19,6 +21,7 @@ public class Spieler {
 	private SpielFeld spielfeld;
 	private Spielerstatus spielerstatus;
 	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
+
 	// ----------------------------- //
 
 	/**
@@ -56,14 +59,16 @@ public class Spieler {
 						+ "nach oben    =  2\n" + "nach unten   = -2");
 		ausgabe.printSeparator();
 
-		System.out.println(this.getName()+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
+		System.out.println(this.getName()
+				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Schlauchboot()));
-		System.out.println(this.getName()+ ", platzieren sie das zweite Schiff(2): x,y,Richtung");
+		System.out.println(this.getName()
+				+ ", platzieren sie das zweite Schiff(2): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Fregatte()));
-		System.out.println(this.getName()+ ", platzieren sie das dritte Schiff(3): x,y,Richtung");
+		System.out.println(this.getName()
+				+ ", platzieren sie das dritte Schiff(3): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Kreuzer()));
-		
-		
+
 	}
 
 	/**
@@ -71,7 +76,7 @@ public class Spieler {
 	 * 
 	 * @return
 	 */
-	public void shoot() {
+	public void shoot(Spieler gegner) {
 
 		boolean invalidInput = true;
 		String input = null;
@@ -87,50 +92,67 @@ public class Spieler {
 			}
 
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
-			if (!spielfeld.validKoordinaten(zielKoordinate)) {
+			if (!gegner.getSpielfeld().validKoordinaten(zielKoordinate)) {
 				ausgabe.printFalscheEingabe();
 				continue;
 			}
 			invalidInput = false;
-			// invalidInput = !spielfeld.shoot(zielKoordinate);
-			if(invalidInput) {
+			invalidInput = !gegner.getSpielfeld().shoot(zielKoordinate);
+			if (invalidInput) {
 				ausgabe.printFalscheEingabe();
-			}
-			
+			} else
+				isGameOver();
+
 		} // invalidInput
 
-		
+	}
 
+	private void isGameOver() {
+		boolean gameOver = true;
+		for (WarMachine w : warMachine) {
+			if (!w.isVersenkt())
+				gameOver = false;
+		}
+		if (gameOver)
+			Regeln.setGameOver();
 	}
 
 	public void printSpielFeld() {
-		this.spielfeld.updateSpielFeld();
+		ausgabe.printSeparator();
+		System.out.println(getName() + "\n");
+		this.spielfeld.updateSpielFeld(getName());
 	}
 
 	/**
-	 * Gibt den Spielerstatus nach dem Spiel aus. Der Spielerstatus
-	 * variiert, je nachdem ob er verloren oder gewonnen hat (Strategiemuster).
+	 * Gibt den Spielerstatus nach dem Spiel aus. Der Spielerstatus variiert, je
+	 * nachdem ob er verloren oder gewonnen hat (Strategiemuster).
 	 */
 	public void printStatus() {
+		boolean alleVersenkt = true;
 		for (WarMachine w : warMachine) {
-			// w.istVersenkt -> spielerstatus = new StatusVerloren();
+			if (!w.isVersenkt())
+				alleVersenkt = false;
 		}
-		System.out.println(this.getName() + " hat " + spielerstatus.getSpielerstatus()); 
-		}
-	
+		if (alleVersenkt)
+			spielerstatus = new StatusVerloren();
+		System.out.println(this.getName() + " hat "
+				+ spielerstatus.getSpielerstatus());
+	}
+
 	/**
-	 * Platziert eine WarMachine auf dem Spielfeld. Gibt diese
-	 * WarMachine dann wieder zurück.
+	 * Platziert eine WarMachine auf dem Spielfeld. Gibt diese WarMachine dann
+	 * wieder zurück.
+	 * 
 	 * @param WarMachine
 	 * @return WarMachine
 	 */
 	private WarMachine platziereWarMachine(WarMachine newWarMachine) {
-		
+
 		boolean invalidInput = true;
 		String input = null;
 		Koordinate platzKoordinate = null;
 		Ausrichtung platzAusrichtung = null;
-		
+
 		while (invalidInput) {
 			try {
 				input = eingabe.getUserInput();
@@ -147,16 +169,21 @@ public class Spieler {
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
 
 			try {
-				spielfeld.place(newWarMachine, platzKoordinate, platzAusrichtung);
+				spielfeld.place(newWarMachine, platzKoordinate,
+						platzAusrichtung);
 				invalidInput = false;
 			} catch (Exception e) {
 				ausgabe.printFalscheEingabe();
 				invalidInput = true;
 			}
-			
+
 		} // while invalid Input
-		
+
 		return newWarMachine;
+	}
+
+	public SpielFeld getSpielfeld() {
+		return spielfeld;
 	}
 
 }

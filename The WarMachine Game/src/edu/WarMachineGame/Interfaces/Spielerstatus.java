@@ -1,4 +1,4 @@
-package edu.WarMachineGame.SpielRaum;
+package edu.WarMachineGame.Interfaces;
 
 public interface Spielerstatus {
 	

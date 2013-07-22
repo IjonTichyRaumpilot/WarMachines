@@ -1,4 +1,4 @@
-package edu.WarMachineGame.SpielRaum;
+package edu.WarMachineGame.Enumerations;
 
 public enum Ausrichtung {
 	KEINE(0),XPLUS(1),XMINUS(-1),YPLUS(2),YMINUS(-2);
