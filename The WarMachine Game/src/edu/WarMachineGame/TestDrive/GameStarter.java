@@ -1,7 +1,7 @@
 package edu.WarMachineGame.TestDrive;
 
 import edu.WarMachineGame.SpielRaum.Regeln;
-import edu.WarMachineGame.SpielRaum.Spieler;
+import edu.WarMachineGame.SpielRaum.LokalerSpieler;
 
 public class GameStarter {
 
@@ -21,8 +21,8 @@ public class GameStarter {
 		// Connection
 
 		// Init Players
-		Spieler spieler1 = new Spieler("Spieler1");
-		Spieler spieler2 = new Spieler("Spieler2");
+		LokalerSpieler spieler1 = new LokalerSpieler("Spieler1");
+		LokalerSpieler spieler2 = new LokalerSpieler("Spieler2");
 
 		// Platziere Schiffe
 		spieler1.place();

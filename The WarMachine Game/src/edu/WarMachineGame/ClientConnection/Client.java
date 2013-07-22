@@ -3,6 +3,7 @@ package edu.WarMachineGame.ClientConnection;
 import java.net.*;
 import java.io.*;
 
+import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
 
 public class Client {
@@ -12,8 +13,43 @@ public class Client {
 
 	public Client(int port) {
 
-		connectToHost(port);
-		beTheHost(port);
+		String input = null;
+		int inputOption = 0;
+		boolean validInput = false;
+
+		System.out.println("Wählen sie zwischen Host(1) oder Verbindung(2).");
+
+		while (!validInput) {
+			try {
+				input = Eingabe.getEingabe().getUserInput();
+			} catch (Exception e) {
+				// Nothing
+			}
+
+			try {
+				inputOption = Integer.parseInt(input);
+			} catch (Exception e) {
+				Ausgabe.getAusgabe().printFalscheEingabe();
+				continue;
+			}
+
+			switch (inputOption) {
+			case 1:
+				beTheHost(port);
+				validInput = true;
+				break;
+
+			case 2:
+				connectToHost(port);
+				validInput = true;
+				break;
+
+			default:
+				Ausgabe.getAusgabe().printFalscheEingabe();
+				break;
+			}
+
+		}
 
 	}
 
@@ -40,8 +76,10 @@ public class Client {
 
 			try {
 				socket = new Socket(ip, port);
+				validIP = true;
 			} catch (Exception e) {
 				System.out.println("Fehler bei der Serververbindung:" + e);
+				validIP = false;
 				continue;
 			}
 		}
