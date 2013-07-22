@@ -12,7 +12,7 @@ public class GameStarter {
 
 		System.out
 				.println("/===============================================\\\n"
-						+ "| Wilkommen zu WAR-MACHINES (Schiffe versenken) |\n"
+						+ "|             Willkommen zu WAR-MACHINES        |\n"
 						+ "\\===============================================/");
 
 		// Init Regeln

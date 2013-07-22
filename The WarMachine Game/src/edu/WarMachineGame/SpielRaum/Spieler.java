@@ -7,6 +7,8 @@ import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
 import edu.WarMachineGame.Interfaces.Spielerstatus;
+import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
+import edu.WarMachineGame.Spielerstatus.StatusVerloren;
 import edu.WarMachineGame.WarMachines.Fregatte;
 import edu.WarMachineGame.WarMachines.Kreuzer;
 import edu.WarMachineGame.WarMachines.Schlauchboot;
