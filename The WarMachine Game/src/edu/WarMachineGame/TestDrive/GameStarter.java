@@ -82,6 +82,7 @@ public class GameStarter {
 		}
 
 		spieler1.printStatus();
-		Client.getClient().closeConnection();
+		if (!Client.getClient().getIsLocal())
+			Client.getClient().closeConnection();
 	}
 }
