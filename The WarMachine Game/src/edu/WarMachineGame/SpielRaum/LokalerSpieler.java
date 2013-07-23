@@ -121,7 +121,8 @@ public class LokalerSpieler implements Spieler {
 
 		} // invalidInput
 
-		client.sendPlayerInput(input);
+		if (!Client.getClient().getIsLocal())
+			client.sendPlayerInput(input);
 	}
 
 	/*
@@ -203,7 +204,8 @@ public class LokalerSpieler implements Spieler {
 
 		} // while invalid Input
 
-		client.sendPlayerInput(input);
+		if (!Client.getClient().getIsLocal())
+			client.sendPlayerInput(input);
 		return newWarMachine;
 	}
 

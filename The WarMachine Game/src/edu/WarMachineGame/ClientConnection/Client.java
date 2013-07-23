@@ -15,6 +15,7 @@ public class Client {
 
 	private static Client client;
 	private boolean isHost = false;
+	private boolean isLocal = false;
 	private ObjectInputStream Sinput; // Socket lesen
 	private ObjectOutputStream Soutput; // Socket schreiben
 
@@ -30,6 +31,14 @@ public class Client {
 		return client;
 	}
 
+	private void setIsLocal(boolean isLocal) {
+		this.isLocal = isLocal;
+	}
+
+	public boolean getIsLocal() {
+		return this.isLocal;
+	}
+
 	/**
 	 * Erstellt den Spielclienten mit dem entsprechenden Port
 	 * 
@@ -42,7 +51,8 @@ public class Client {
 		int inputOption = 0;
 		boolean validInput = false;
 
-		System.out.println("Wählen sie zwischen Host(1) oder Verbindung(2).");
+		System.out
+				.println("Wählen sie zwischen Host(1), Verbindung(2) oder Computergegner(3).");
 
 		while (!validInput) {
 			try {
@@ -67,6 +77,11 @@ public class Client {
 
 			case 2:
 				connectToHost(port);
+				validInput = true;
+				break;
+			case 3:
+				setIsLocal(true);
+				setIsHost(true);
 				validInput = true;
 				break;
 

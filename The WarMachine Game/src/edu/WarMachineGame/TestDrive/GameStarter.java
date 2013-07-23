@@ -1,9 +1,11 @@
 package edu.WarMachineGame.TestDrive;
 
 import edu.WarMachineGame.ClientConnection.Client;
+import edu.WarMachineGame.SpielRaum.ComputerSpieler;
 import edu.WarMachineGame.SpielRaum.LokalerSpieler;
 import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.RemoteSpieler;
+import edu.WarMachineGame.SpielRaum.Spieler;
 import edu.WarMachineGame.Visualisierung.Visualisierbar;
 import edu.WarMachineGame.Visualisierung.GUI_Version1.GUI_Version1;
 
@@ -36,15 +38,18 @@ public class GameStarter {
 		// Init Regeln
 		Regeln regeln = Regeln.getRegeln();
 
-		// Connection
-
 		// Init Players
 		LokalerSpieler spieler1 = new LokalerSpieler("Spieler1");
-		// LokalerSpieler spieler2 = new LokalerSpieler("Spieler2");
-		RemoteSpieler spieler2 = new RemoteSpieler("Spieler2");
+		Spieler spieler2 = null;
+
+		if (Client.getClient().getIsLocal()) {
+			spieler2 = new ComputerSpieler("Spieler2");
+		} else {
+			spieler2 = new RemoteSpieler("Spieler2");
+		}
 
 		// Platziere Schiffe (Host zuerst)
-		if (spieler1.isHost()) {
+		if (Client.getClient().getIsHost()) {
 			spieler1.place();
 			spieler2.place();
 		} else {
@@ -52,7 +57,6 @@ public class GameStarter {
 			spieler1.place();
 		}
 
-		// Visualisierbar visualisierung = new TextAusgabe();
 		Visualisierbar visualisierungSpieler1 = new GUI_Version1();
 
 		// Spielschleife (Host fängt an)
@@ -80,5 +84,4 @@ public class GameStarter {
 		spieler1.printStatus();
 		Client.getClient().closeConnection();
 	}
-
 }
