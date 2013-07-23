@@ -1,5 +1,6 @@
 package edu.WarMachineGame.TestDrive;
 
+import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.SpielRaum.LokalerSpieler;
 import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.RemoteSpieler;
@@ -77,7 +78,7 @@ public class GameStarter {
 		}
 
 		spieler1.printStatus();
-
+		Client.getClient().closeConnection();
 	}
 
 }
