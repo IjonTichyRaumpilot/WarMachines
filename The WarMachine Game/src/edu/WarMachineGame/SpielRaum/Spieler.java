@@ -1,21 +1,38 @@
 package edu.WarMachineGame.SpielRaum;
 
-import edu.WarMachineGame.WarMachines.WarMachine;
-
 public interface Spieler {
 
+	/**
+	 * Gibt Name des Spielers zurück.
+	 * 
+	 * @return String
+	 */
 	public String getName();
 
+	/**
+	 * Platziere die Schiffe des Spielers
+	 */
 	public void place();
 
+	/**
+	 * Checkt, ob das Spiel vorbei ist.
+	 * 
+	 * @return boolean
+	 */
 	public boolean isGameOver();
 
-	public void printStatus();
-
-	public WarMachine platziereWarMachine(WarMachine newWarMachine);
-
+	/**
+	 * Holt das Spielfeld des Spielers.
+	 * 
+	 * @return SpielFeld
+	 */
 	public SpielFeld getSpielfeld();
 
+	/**
+	 * Schießt auf einen Spieler.
+	 * 
+	 * @param Spieler
+	 */
 	void shoot(Spieler gegner);
 
 }

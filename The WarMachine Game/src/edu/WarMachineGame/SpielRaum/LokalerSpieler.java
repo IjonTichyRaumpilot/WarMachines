@@ -38,15 +38,21 @@ public class LokalerSpieler implements Spieler {
 		this.spielerstatus = new StatusGewonnen();
 	}
 
-	public Client getClient() {
-		return this.client;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.WarMachineGame.SpielRaum.Spieler#getName()
+	 */
 	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.WarMachineGame.SpielRaum.Spieler#place()
+	 */
 	@Override
 	public void place() {
 
@@ -71,6 +77,13 @@ public class LokalerSpieler implements Spieler {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.WarMachineGame.SpielRaum.Spieler#shoot(edu.WarMachineGame.SpielRaum
+	 * .Spieler)
+	 */
 	@Override
 	public void shoot(Spieler gegner) {
 
@@ -105,6 +118,11 @@ public class LokalerSpieler implements Spieler {
 		client.sendPlayerInput(input);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.WarMachineGame.SpielRaum.Spieler#isGameOver()
+	 */
 	@Override
 	public boolean isGameOver() {
 		boolean gameOver = true;
@@ -120,7 +138,9 @@ public class LokalerSpieler implements Spieler {
 
 	}
 
-	@Override
+	/**
+	 * Printet den aktuellen Status des Spielers (verloren/gewonnen).
+	 */
 	public void printStatus() {
 		boolean alleVersenkt = true;
 		for (WarMachine w : warMachine) {
@@ -129,11 +149,17 @@ public class LokalerSpieler implements Spieler {
 		}
 		if (alleVersenkt)
 			spielerstatus = new StatusVerloren();
+		ausgabe.printSeparator();
 		System.out.println("Sie haben " + spielerstatus.getSpielerstatus());
 	}
 
-	@Override
-	public WarMachine platziereWarMachine(WarMachine newWarMachine) {
+	/**
+	 * Platziert die WarMachine und gibt diese wieder zurück;
+	 * 
+	 * @param WarMachine
+	 * @return WarMachine
+	 */
+	private WarMachine platziereWarMachine(WarMachine newWarMachine) {
 
 		boolean invalidInput = true;
 		String input = null;
@@ -174,11 +200,21 @@ public class LokalerSpieler implements Spieler {
 		return newWarMachine;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.WarMachineGame.SpielRaum.Spieler#getSpielfeld()
+	 */
 	@Override
 	public SpielFeld getSpielfeld() {
 		return spielfeld;
 	}
 
+	/**
+	 * Gibt true zurück, falls der Spieler der Host ist.
+	 * 
+	 * @return boolean
+	 */
 	public boolean isHost() {
 		return client.getIsHost();
 	}

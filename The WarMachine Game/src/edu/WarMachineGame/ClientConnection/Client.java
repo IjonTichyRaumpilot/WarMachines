@@ -10,8 +10,8 @@ public class Client {
 
 	private static Client client;
 	private boolean isHost = false;
-	private ObjectInputStream Sinput; // to read the socket
-	private ObjectOutputStream Soutput; // towrite on the socket
+	private ObjectInputStream Sinput; // Socket lesen
+	private ObjectOutputStream Soutput; // Socket schreiben
 
 	public static Client getClient() {
 		if (client == null) {

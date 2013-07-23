@@ -39,9 +39,8 @@ public class GameStarter {
 
 		// Visualisierbar visualisierung = new TextAusgabe();
 		Visualisierbar visualisierungSpieler1 = new SwingFenster();
-		// Visualisierbar visualisierungSpieler2 = new SwingFenster();
 
-		// Spielschleife
+		// Spielschleife (Host fängt an)
 		if (spieler1.isHost()) {
 			spieler1.shoot(spieler2);
 			visualisierungSpieler1.zeigeSpielFeld(spieler1);
@@ -55,12 +54,10 @@ public class GameStarter {
 		while (!regeln.isGameOver()) {
 			spieler1.shoot(spieler2);
 			visualisierungSpieler1.zeigeSpielFeld(spieler1);
-			// visualisierungSpieler2.zeigeSpielFeld(spieler2);
 			if (spieler2.isGameOver())
 				break;
 			spieler2.shoot(spieler1);
 			visualisierungSpieler1.zeigeSpielFeld(spieler1);
-			// visualisierungSpieler2.zeigeSpielFeld(spieler2);
 			if (spieler1.isGameOver())
 				break;
 		}

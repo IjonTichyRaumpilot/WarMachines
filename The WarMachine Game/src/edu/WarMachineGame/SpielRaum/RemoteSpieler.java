@@ -5,15 +5,8 @@ import java.util.List;
 
 import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.Ausgabe;
-import edu.WarMachineGame.IO.Eingabe;
-import edu.WarMachineGame.Interfaces.Spielerstatus;
-import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
-import edu.WarMachineGame.Spielerstatus.StatusVerloren;
-import edu.WarMachineGame.WarMachines.Fregatte;
-import edu.WarMachineGame.WarMachines.Kreuzer;
-import edu.WarMachineGame.WarMachines.Schlauchboot;
-import edu.WarMachineGame.WarMachines.WarMachine;
+import edu.WarMachineGame.IO.*;
+import edu.WarMachineGame.WarMachines.*;
 
 public class RemoteSpieler implements Spieler {
 
@@ -23,7 +16,6 @@ public class RemoteSpieler implements Spieler {
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
 	private SpielFeld spielfeld;
-	private Spielerstatus spielerstatus;
 	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
 
 	// ----------------------------- //
@@ -40,7 +32,6 @@ public class RemoteSpieler implements Spieler {
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
-		this.spielerstatus = new StatusGewonnen();
 	}
 
 	/*
@@ -130,32 +121,13 @@ public class RemoteSpieler implements Spieler {
 
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Platziert die WarMachine und gibt diese wieder zurück;
 	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#printStatus()
+	 * @param WarMachine
+	 * @return WarMachine
 	 */
-	@Override
-	public void printStatus() {
-		boolean alleVersenkt = true;
-		for (WarMachine w : warMachine) {
-			if (!w.isVersenkt())
-				alleVersenkt = false;
-		}
-		if (alleVersenkt)
-			spielerstatus = new StatusVerloren();
-		System.out.println("Sie haben " + spielerstatus.getSpielerstatus());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.WarMachineGame.SpielRaum.Spieler#platziereWarMachine(edu.WarMachineGame
-	 * .WarMachines.WarMachine)
-	 */
-	@Override
-	public WarMachine platziereWarMachine(WarMachine newWarMachine) {
+	private WarMachine platziereWarMachine(WarMachine newWarMachine) {
 
 		boolean invalidInput = true;
 		String input = null;
