@@ -6,6 +6,11 @@ import java.io.*;
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
 
+/**
+ * 
+ * @author Constantin
+ * 
+ */
 public class Client {
 
 	private static Client client;
@@ -13,6 +18,10 @@ public class Client {
 	private ObjectInputStream Sinput; // Socket lesen
 	private ObjectOutputStream Soutput; // Socket schreiben
 
+	/**
+	 * @return gibt den einzigen Spielclienten zurück.
+	 * @author Constantin
+	 */
 	public static Client getClient() {
 		if (client == null) {
 			client = new Client(1400);
@@ -21,6 +30,12 @@ public class Client {
 		return client;
 	}
 
+	/**
+	 * Erstellt den Spielclienten mit dem entsprechenden Port
+	 * 
+	 * @param int port
+	 * @author Constantin
+	 */
 	private Client(int port) {
 
 		String input = null;
@@ -64,10 +79,22 @@ public class Client {
 
 	}
 
+	/**
+	 * Setzt den Status isHost;
+	 * 
+	 * @param boolean isHost
+	 * @author Constantin
+	 */
 	private void setIsHost(boolean isHost) {
 		this.isHost = isHost;
 	}
 
+	/**
+	 * Gibt zurück, ob der Spielclient der Host ist.
+	 * 
+	 * @return boolean
+	 * @author Constantin
+	 */
 	public boolean getIsHost() {
 		return this.isHost;
 	}
@@ -75,7 +102,8 @@ public class Client {
 	/**
 	 * Verbinde zu einem Host-Server.
 	 * 
-	 * @param port
+	 * @param int port
+	 * @author Constantin
 	 */
 	private void connectToHost(int port) {
 
@@ -116,6 +144,12 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Aktiviert den Spielclienten als Host.
+	 * 
+	 * @param int port
+	 * @author Constantin
+	 */
 	private void beTheHost(int port) {
 
 		ServerSocket serverSocket = null;
@@ -149,6 +183,12 @@ public class Client {
 		System.out.println("Verbindung hergestellt.");
 	}
 
+	/**
+	 * Schickt den String an den anderen Spielclienten.
+	 * 
+	 * @param String
+	 * @author Constantin
+	 */
 	public void sendPlayerInput(String input) {
 
 		try {
@@ -159,6 +199,13 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Holt eine Nachricht vom anderen Clienten ab. Falls der Gegner noch nicht
+	 * getippt hat, muss der Spieler warten.
+	 * 
+	 * @author Constantin
+	 * 
+	 */
 	public String getPlayerInput() {
 		String response = "invalid";
 		System.out.println("Warte auf Gegner ...");
@@ -171,6 +218,11 @@ public class Client {
 		return response;
 	}
 
+	/**
+	 * Schließe die Verbindung.
+	 * 
+	 * @author Constantin
+	 */
 	public void closeConnection() {
 
 		try {

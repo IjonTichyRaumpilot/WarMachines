@@ -8,6 +8,11 @@ import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.IO.*;
 import edu.WarMachineGame.WarMachines.*;
 
+/**
+ * 
+ * @author Constantin
+ * 
+ */
 public class RemoteSpieler implements Spieler {
 
 	// --------- VARIABLES --------- //
@@ -25,6 +30,7 @@ public class RemoteSpieler implements Spieler {
 	 * 
 	 * @param String
 	 *            name
+	 * @author Constantin
 	 */
 	public RemoteSpieler(String name) {
 		this.name = name;

@@ -6,6 +6,15 @@ import edu.WarMachineGame.SpielRaum.RemoteSpieler;
 import edu.WarMachineGame.Visualisierung.SwingFenster;
 import edu.WarMachineGame.Visualisierung.Visualisierbar;
 
+/**
+ * 
+ * Dieses Spiel ist ein Angriffssimulator für einen realgetreuen Flottenkampf.
+ * Kann auch zur strategischen Angriffsplanung auf westliche Mächte verwendet
+ * werden.
+ * 
+ * @author Arthur und Constantin
+ * 
+ */
 public class GameStarter {
 
 	/**
@@ -14,9 +23,14 @@ public class GameStarter {
 	public static void main(String[] args) {
 
 		System.out
-				.println("/===============================================\\\n"
-						+ "|             Willkommen zu WAR-MACHINES        |\n"
-						+ "\\===============================================/");
+				.println("/===================================================\\\n"
+						+ "|   \\\\             /     /\\\\      |–––\\\\            |\n"
+						+ "|    \\\\    /\\\\    /     /  \\\\     |    ||           |\n"
+						+ "|     \\\\  /  \\\\  /     /––––\\\\    |–––//            |\n"
+						+ "|      \\\\/    \\\\/     /      \\\\   |   \\\\ - Machines |\n"
+						+ "|===================================================|\n"
+						+ "|     Das klassische Flottensimulationsspiel.       |\n"
+						+ "\\===================================================/");
 
 		// Init Regeln
 		Regeln regeln = Regeln.getRegeln();

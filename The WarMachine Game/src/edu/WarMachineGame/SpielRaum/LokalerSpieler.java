@@ -10,6 +10,11 @@ import edu.WarMachineGame.Interfaces.Spielerstatus;
 import edu.WarMachineGame.Spielerstatus.*;
 import edu.WarMachineGame.WarMachines.*;
 
+/**
+ * 
+ * @author Constantin
+ * 
+ */
 public class LokalerSpieler implements Spieler {
 
 	// --------- VARIABLES --------- //
@@ -28,6 +33,7 @@ public class LokalerSpieler implements Spieler {
 	 * 
 	 * @param String
 	 *            name
+	 * @author Constantin
 	 */
 	public LokalerSpieler(String name) {
 		this.name = name;
@@ -158,6 +164,7 @@ public class LokalerSpieler implements Spieler {
 	 * 
 	 * @param WarMachine
 	 * @return WarMachine
+	 * @author Constantin
 	 */
 	private WarMachine platziereWarMachine(WarMachine newWarMachine) {
 
@@ -214,6 +221,7 @@ public class LokalerSpieler implements Spieler {
 	 * Gibt true zurück, falls der Spieler der Host ist.
 	 * 
 	 * @return boolean
+	 * @author Constantin
 	 */
 	public boolean isHost() {
 		return client.getIsHost();

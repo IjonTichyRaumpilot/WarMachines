@@ -6,11 +6,14 @@ public interface Spieler {
 	 * Gibt Name des Spielers zurück.
 	 * 
 	 * @return String
+	 * @author Constantin
 	 */
 	public String getName();
 
 	/**
 	 * Platziere die Schiffe des Spielers
+	 * 
+	 * @author Constantin
 	 */
 	public void place();
 
@@ -18,6 +21,7 @@ public interface Spieler {
 	 * Checkt, ob das Spiel vorbei ist.
 	 * 
 	 * @return boolean
+	 * @author Constantin
 	 */
 	public boolean isGameOver();
 
@@ -25,6 +29,7 @@ public interface Spieler {
 	 * Holt das Spielfeld des Spielers.
 	 * 
 	 * @return SpielFeld
+	 * @author Constantin
 	 */
 	public SpielFeld getSpielfeld();
 
@@ -32,6 +37,7 @@ public interface Spieler {
 	 * Schießt auf einen Spieler.
 	 * 
 	 * @param Spieler
+	 * @author Constantin
 	 */
 	void shoot(Spieler gegner);
 

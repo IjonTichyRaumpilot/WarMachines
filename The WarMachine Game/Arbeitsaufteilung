@@ -1,11 +1,11 @@
-Klassen für Constantin
+Klassen von Constantin
 IO.Ausgabe
 IO.Eingabe
 SpielRaum.Regeln
 SpielRaum.Spieler
 
 
-Klassen für Arthur
+Klassen von Arthur
 SpielRaum.Ausrichtung
 SpielRaum.Element
 SpielRaum.InvalidPlacementException
