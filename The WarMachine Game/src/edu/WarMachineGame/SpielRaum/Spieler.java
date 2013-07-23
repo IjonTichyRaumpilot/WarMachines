@@ -1,6 +1,6 @@
 package edu.WarMachineGame.SpielRaum;
 
-import edu.WarMachineGame.WarMachines.*;
+import edu.WarMachineGame.WarMachines.WarMachine;
 
 public interface Spieler {
 
@@ -8,9 +8,7 @@ public interface Spieler {
 
 	public void place();
 
-	public void isGameOver();
-
-	public void printSpielFeld();
+	public boolean isGameOver();
 
 	public void printStatus();
 

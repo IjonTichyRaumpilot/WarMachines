@@ -115,26 +115,18 @@ public class RemoteSpieler implements Spieler {
 	 * @see edu.WarMachineGame.SpielRaum.Spieler#isGameOver()
 	 */
 	@Override
-	public void isGameOver() {
+	public boolean isGameOver() {
 		boolean gameOver = true;
 		for (WarMachine w : warMachine) {
 			if (!w.isVersenkt())
 				gameOver = false;
 		}
-		if (gameOver)
+		if (gameOver) {
 			Regeln.setGameOver();
-	}
+			return true;
+		} else
+			return false;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.WarMachineGame.SpielRaum.Spieler#printSpielFeld()
-	 */
-	@Override
-	public void printSpielFeld() {
-		ausgabe.printSeparator();
-		System.out.println(getName() + "\n");
-		this.spielfeld.updateSpielFeld(getName());
 	}
 
 	/*

@@ -1,5 +1,7 @@
 package edu.WarMachineGame.SpielRaum.ElementZustaende;
 
+import java.awt.Color;
+
 import edu.WarMachineGame.Interfaces.ElementZustand;
 import edu.WarMachineGame.SpielRaum.Element;
 
@@ -25,6 +27,11 @@ public class WarMachineZustand implements ElementZustand {
 	@Override
 	public String getElementVisualizationAsString() {
 		return "O";
+	}
+
+	@Override
+	public Color getElementColor() {
+		return Color.green;
 	}
 
 }

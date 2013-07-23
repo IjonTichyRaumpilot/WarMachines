@@ -1,5 +1,7 @@
 package edu.WarMachineGame.SpielRaum;
 
+import java.awt.Color;
+
 import edu.WarMachineGame.Interfaces.ElementZustand;
 import edu.WarMachineGame.SpielRaum.ElementZustaende.FreiZustand;
 import edu.WarMachineGame.SpielRaum.ElementZustaende.WarMachineZustand;
@@ -43,6 +45,10 @@ public class Element {
 
 	public String getElemenVisualizationAsString() {
 		return zustand.getElementVisualizationAsString();
+	}
+
+	public Color getElementColor() {
+		return zustand.getElementColor();
 	}
 
 }

@@ -1,5 +1,7 @@
 package edu.WarMachineGame.SpielRaum.ElementZustaende;
 
+import java.awt.Color;
+
 import edu.WarMachineGame.Interfaces.ElementZustand;
 import edu.WarMachineGame.SpielRaum.Element;
 
@@ -19,5 +21,10 @@ public class FreiBereitsBeschossenZustand implements ElementZustand {
 	@Override
 	public String getElementVisualizationAsString() {
 		return "X";
+	}
+
+	@Override
+	public Color getElementColor() {
+		return Color.black;
 	}
 }

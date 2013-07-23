@@ -1,7 +1,9 @@
 package edu.WarMachineGame.TestDrive;
 
-import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.LokalerSpieler;
+import edu.WarMachineGame.SpielRaum.Regeln;
+import edu.WarMachineGame.Visualisierung.SwingFenster;
+import edu.WarMachineGame.Visualisierung.Visualisierbar;
 
 public class GameStarter {
 
@@ -28,16 +30,22 @@ public class GameStarter {
 		spieler1.place();
 		spieler2.place();
 
+		// Visualisierbar visualisierung = new TextAusgabe();
+		Visualisierbar visualisierungSpieler1 = new SwingFenster();
+		Visualisierbar visualisierungSpieler2 = new SwingFenster();
+
 		// Spielschleife
 		while (!regeln.isGameOver()) {
 			spieler1.shoot(spieler2);
-			spieler1.printSpielFeld();
-			spieler2.printSpielFeld();
-			if (regeln.isGameOver())
+			visualisierungSpieler1.zeigeSpielFeld(spieler1);
+			visualisierungSpieler2.zeigeSpielFeld(spieler2);
+			if (spieler2.isGameOver())
 				break;
 			spieler2.shoot(spieler1);
-			spieler1.printSpielFeld();
-			spieler2.printSpielFeld();
+			visualisierungSpieler1.zeigeSpielFeld(spieler1);
+			visualisierungSpieler2.zeigeSpielFeld(spieler2);
+			if (spieler1.isGameOver())
+				break;
 		}
 
 		spieler1.printStatus();

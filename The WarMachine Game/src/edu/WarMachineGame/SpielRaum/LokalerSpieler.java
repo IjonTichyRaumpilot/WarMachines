@@ -5,10 +5,15 @@ import java.util.List;
 
 import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.*;
+import edu.WarMachineGame.IO.Ausgabe;
+import edu.WarMachineGame.IO.Eingabe;
 import edu.WarMachineGame.Interfaces.Spielerstatus;
-import edu.WarMachineGame.Spielerstatus.*;
-import edu.WarMachineGame.WarMachines.*;
+import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
+import edu.WarMachineGame.Spielerstatus.StatusVerloren;
+import edu.WarMachineGame.WarMachines.Fregatte;
+import edu.WarMachineGame.WarMachines.Kreuzer;
+import edu.WarMachineGame.WarMachines.Schlauchboot;
+import edu.WarMachineGame.WarMachines.WarMachine;
 
 public class LokalerSpieler implements Spieler {
 
@@ -31,7 +36,7 @@ public class LokalerSpieler implements Spieler {
 	 */
 	public LokalerSpieler(String name) {
 		this.name = name;
-		this.client = new Client(1400);
+		// this.client = new Client(1400);
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
@@ -101,21 +106,18 @@ public class LokalerSpieler implements Spieler {
 	}
 
 	@Override
-	public void isGameOver() {
+	public boolean isGameOver() {
 		boolean gameOver = true;
 		for (WarMachine w : warMachine) {
 			if (!w.isVersenkt())
 				gameOver = false;
 		}
-		if (gameOver)
+		if (gameOver) {
 			Regeln.setGameOver();
-	}
+			return true;
+		} else
+			return false;
 
-	@Override
-	public void printSpielFeld() {
-		ausgabe.printSeparator();
-		System.out.println(getName() + "\n");
-		this.spielfeld.updateSpielFeld(getName());
 	}
 
 	@Override
