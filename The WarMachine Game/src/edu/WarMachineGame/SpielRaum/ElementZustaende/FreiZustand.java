@@ -30,4 +30,9 @@ public class FreiZustand implements ElementZustand {
 		return Color.cyan;
 	}
 
+	@Override
+	public int getZustandsIndex() {
+		return 0;
+	}
+
 }

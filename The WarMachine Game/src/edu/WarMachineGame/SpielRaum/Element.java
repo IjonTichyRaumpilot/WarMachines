@@ -39,6 +39,10 @@ public class Element {
 		this.zustand = zustand;
 	}
 
+	public int getZustandsIndex() {
+		return this.zustand.getZustandsIndex();
+	}
+
 	public WarMachine getWarMachine() {
 		return warMachine;
 	}

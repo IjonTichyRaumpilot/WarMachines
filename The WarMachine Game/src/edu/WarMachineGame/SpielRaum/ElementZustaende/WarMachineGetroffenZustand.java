@@ -28,4 +28,9 @@ public class WarMachineGetroffenZustand implements ElementZustand {
 		return Color.red;
 	}
 
+	@Override
+	public int getZustandsIndex() {
+		return 3;
+	}
+
 }

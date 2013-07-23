@@ -4,6 +4,6 @@ import edu.WarMachineGame.SpielRaum.Spieler;
 
 public interface Visualisierbar {
 
-	public void zeigeSpielFeld(Spieler spieler);
+	public void zeigeSpielFeld(Spieler spieler, Spieler gegner);
 
 }

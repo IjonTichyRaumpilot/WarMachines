@@ -10,4 +10,6 @@ public interface ElementZustand {
 
 	public Color getElementColor();
 
+	public int getZustandsIndex();
+
 }

@@ -27,4 +27,9 @@ public class FreiBereitsBeschossenZustand implements ElementZustand {
 	public Color getElementColor() {
 		return Color.black;
 	}
+
+	@Override
+	public int getZustandsIndex() {
+		return 1;
+	}
 }

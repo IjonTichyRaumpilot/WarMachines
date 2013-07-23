@@ -34,4 +34,9 @@ public class WarMachineZustand implements ElementZustand {
 		return Color.green;
 	}
 
+	@Override
+	public int getZustandsIndex() {
+		return 2;
+	}
+
 }

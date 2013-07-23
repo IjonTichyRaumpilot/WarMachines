@@ -13,16 +13,15 @@ public class SwingFenster implements Visualisierbar {
 	private JFrame fenster;
 
 	@Override
-	public void zeigeSpielFeld(Spieler spieler) {
+	public void zeigeSpielFeld(Spieler spieler, Spieler gegner) {
 		if (fenster == null) {
 			fenster = new JFrame("Spielfeld " + spieler.getName());
 			fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			fenster.setSize(800, 600);
 			updateFenster(spieler);
 		} else
 			updateFenster(spieler);
-		fenster.repaint();
-
+		fenster.pack();
+		fenster.validate();
 	}
 
 	public void updateFenster(Spieler spieler) {
@@ -30,9 +29,6 @@ public class SwingFenster implements Visualisierbar {
 		fenster.setContentPane(getPanel(spieler));
 		if (!fenster.isVisible())
 			fenster.setVisible(true);
-		fenster.validate();
-		fenster.repaint();
-
 	}
 
 	private JPanel getPanel(Spieler spieler) {
