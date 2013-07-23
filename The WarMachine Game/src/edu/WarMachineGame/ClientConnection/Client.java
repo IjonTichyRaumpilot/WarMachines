@@ -8,10 +8,20 @@ import edu.WarMachineGame.IO.Eingabe;
 
 public class Client {
 
+	private static Client client;
+	private boolean isHost = false;
 	private ObjectInputStream Sinput; // to read the socket
 	private ObjectOutputStream Soutput; // towrite on the socket
 
-	public Client(int port) {
+	public static Client getClient() {
+		if (client == null) {
+			client = new Client(1400);
+			return client;
+		}
+		return client;
+	}
+
+	private Client(int port) {
 
 		String input = null;
 		int inputOption = 0;
@@ -36,6 +46,7 @@ public class Client {
 			switch (inputOption) {
 			case 1:
 				beTheHost(port);
+				setIsHost(true);
 				validInput = true;
 				break;
 
@@ -51,6 +62,14 @@ public class Client {
 
 		}
 
+	}
+
+	private void setIsHost(boolean isHost) {
+		this.isHost = isHost;
+	}
+
+	public boolean getIsHost() {
+		return this.isHost;
 	}
 
 	/**
@@ -99,21 +118,35 @@ public class Client {
 
 	private void beTheHost(int port) {
 
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+
 		try {
-			ServerSocket serverSocket = new ServerSocket(port);
-			System.out.println("Server waiting for client on port "
-					+ serverSocket.getLocalPort());
+			serverSocket = new ServerSocket(port);
+			System.out.println("Host wartet auf anderen Spieler ...");
 
 			while (true) {
-				Socket socket = serverSocket.accept(); // accept connection
-				System.out.println("New client asked for a connection");
-				SpielerThread t = new SpielerThread(socket); // make a thread
-				System.out.println("Starting a thread for a new Client");
-				t.start();
+				socket = serverSocket.accept(); // accept connection
+				if (socket.isConnected())
+					break;
 			}
+
 		} catch (IOException e) {
-			System.out.println("Exception on new ServerSocket: " + e);
+			System.out.println("Exception beim Erstellen des Socket: " + e);
 		}
+
+		System.out.println("Versuche I/O-Stream zu erstelllen ...");
+		try {
+			// create output
+			Soutput = new ObjectOutputStream(socket.getOutputStream());
+			Soutput.flush();
+			Sinput = new ObjectInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			System.out
+					.println("Exception beim Erstellen des I/O-Streams: " + e);
+			return;
+		}
+		System.out.println("Verbindung hergestellt.");
 	}
 
 	public void sendPlayerInput(String input) {
@@ -127,11 +160,13 @@ public class Client {
 	}
 
 	public String getPlayerInput() {
-		String response = "";
+		String response = "invalid";
+		System.out.println("Warte auf Gegner ...");
 		try {
 			response = (String) Sinput.readObject();
 		} catch (Exception e) {
 			System.out.println("Problem bei der Spielerabfrage: " + e);
+			closeConnection();
 		}
 		return response;
 	}

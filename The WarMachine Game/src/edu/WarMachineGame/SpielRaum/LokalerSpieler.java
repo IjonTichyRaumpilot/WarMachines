@@ -5,15 +5,10 @@ import java.util.List;
 
 import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.Ausgabe;
-import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.IO.*;
 import edu.WarMachineGame.Interfaces.Spielerstatus;
-import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
-import edu.WarMachineGame.Spielerstatus.StatusVerloren;
-import edu.WarMachineGame.WarMachines.Fregatte;
-import edu.WarMachineGame.WarMachines.Kreuzer;
-import edu.WarMachineGame.WarMachines.Schlauchboot;
-import edu.WarMachineGame.WarMachines.WarMachine;
+import edu.WarMachineGame.Spielerstatus.*;
+import edu.WarMachineGame.WarMachines.*;
 
 public class LokalerSpieler implements Spieler {
 
@@ -36,11 +31,15 @@ public class LokalerSpieler implements Spieler {
 	 */
 	public LokalerSpieler(String name) {
 		this.name = name;
-		// this.client = new Client(1400);
+		this.client = Client.getClient();
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
 		this.spielerstatus = new StatusGewonnen();
+	}
+
+	public Client getClient() {
+		return this.client;
 	}
 
 	@Override
@@ -53,8 +52,7 @@ public class LokalerSpieler implements Spieler {
 
 		ausgabe.printSeparator();
 		System.out
-				.println(this.getName()
-						+ ", platzieren sie ihre Schiffe(Laenge).\n"
+				.println("Platzieren sie ihre Schiffe(Laenge).\n"
 						+ "Geben sie dazu zuerst die Koordinate(x,y) für das Schiff an\n"
 						+ "und danach die Ausrichtung, wobei:\n"
 						+ "nach rechts  =  1\n" + "nach links   = -1\n"
@@ -79,7 +77,8 @@ public class LokalerSpieler implements Spieler {
 		boolean invalidInput = true;
 		String input = null;
 
-		System.out.println(this.getName() + ", geben sie das Ziel an: x,y");
+		ausgabe.printSeparator();
+		System.out.println("Geben sie das Ziel an: x,y");
 
 		// Einleseschleife
 		while (invalidInput) {
@@ -103,6 +102,7 @@ public class LokalerSpieler implements Spieler {
 
 		} // invalidInput
 
+		client.sendPlayerInput(input);
 	}
 
 	@Override
@@ -129,8 +129,7 @@ public class LokalerSpieler implements Spieler {
 		}
 		if (alleVersenkt)
 			spielerstatus = new StatusVerloren();
-		System.out.println(this.getName() + " hat "
-				+ spielerstatus.getSpielerstatus());
+		System.out.println("Sie haben " + spielerstatus.getSpielerstatus());
 	}
 
 	@Override
@@ -171,12 +170,17 @@ public class LokalerSpieler implements Spieler {
 
 		} // while invalid Input
 
+		client.sendPlayerInput(input);
 		return newWarMachine;
 	}
 
 	@Override
 	public SpielFeld getSpielfeld() {
 		return spielfeld;
+	}
+
+	public boolean isHost() {
+		return client.getIsHost();
 	}
 
 }

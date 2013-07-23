@@ -3,6 +3,7 @@ package edu.WarMachineGame.SpielRaum;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
@@ -18,6 +19,7 @@ public class RemoteSpieler implements Spieler {
 
 	// --------- VARIABLES --------- //
 	private String name;
+	private Client client;
 	private Eingabe eingabe;
 	private Ausgabe ausgabe;
 	private SpielFeld spielfeld;
@@ -34,6 +36,7 @@ public class RemoteSpieler implements Spieler {
 	 */
 	public RemoteSpieler(String name) {
 		this.name = name;
+		this.client = Client.getClient();
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
 		this.ausgabe = Ausgabe.getAusgabe();
@@ -58,14 +61,12 @@ public class RemoteSpieler implements Spieler {
 	@Override
 	public void place() {
 
-		// System.out.println(this.getName()
-		// + ", platzieren sie das erste Schiff(1): x,y,Richtung");
+		ausgabe.printSeparator();
+		System.out.println("Gegner platziert das erste Schiff.");
 		warMachine.add(platziereWarMachine(new Schlauchboot()));
-		// System.out.println(this.getName()
-		// + ", platzieren sie das zweite Schiff(2): x,y,Richtung");
+		System.out.println("Gegner platziert das zweite Schiff.");
 		warMachine.add(platziereWarMachine(new Fregatte()));
-		// System.out.println(this.getName()
-		// + ", platzieren sie das dritte Schiff(3): x,y,Richtung");
+		System.out.println("Gegner platziert das dritte Schiff.");
 		warMachine.add(platziereWarMachine(new Kreuzer()));
 
 	}
@@ -83,12 +84,12 @@ public class RemoteSpieler implements Spieler {
 		boolean invalidInput = true;
 		String input = null;
 
-		// System.out.println(this.getName() + ", geben sie das Ziel an: x,y");
+		ausgabe.printSeparator();
 
 		// Einleseschleife
 		while (invalidInput) {
 			try {
-				input = eingabe.getUserInput();
+				input = client.getPlayerInput();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -143,8 +144,7 @@ public class RemoteSpieler implements Spieler {
 		}
 		if (alleVersenkt)
 			spielerstatus = new StatusVerloren();
-		System.out.println(this.getName() + " hat "
-				+ spielerstatus.getSpielerstatus());
+		System.out.println("Sie haben " + spielerstatus.getSpielerstatus());
 	}
 
 	/*
@@ -164,7 +164,7 @@ public class RemoteSpieler implements Spieler {
 
 		while (invalidInput) {
 			try {
-				input = eingabe.getUserInput();
+				input = client.getPlayerInput();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -187,6 +187,7 @@ public class RemoteSpieler implements Spieler {
 				invalidInput = false;
 			} catch (Exception e) {
 				ausgabe.printFalscheEingabe();
+				System.out.println("Exception: " + e);
 				invalidInput = true;
 			}
 
