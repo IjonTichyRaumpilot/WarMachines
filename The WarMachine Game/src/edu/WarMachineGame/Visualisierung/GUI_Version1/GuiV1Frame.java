@@ -24,9 +24,9 @@ public class GuiV1Frame extends JFrame {
 	private JPanel contentPane;
 
 	private Spieler spieler;
-	private List<JPanel> spielerPanels;
+	private JPanel spielFeld_Spieler;
 	private Spieler gegner;
-	private List<JPanel> gegnerPanels;
+	private JPanel spielFeld_Gegner;
 
 	/**
 	 * Create the frame.
@@ -34,8 +34,6 @@ public class GuiV1Frame extends JFrame {
 	public GuiV1Frame(Spieler spieler, Spieler gegner) {
 		this.spieler = spieler;
 		this.gegner = gegner;
-		this.updateSpielerPanels();
-		this.updateGegnerPanels();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 770, 449);
@@ -126,13 +124,11 @@ public class GuiV1Frame extends JFrame {
 		JLabel label_30 = new JLabel("0");
 		panel_131.add(label_30);
 
-		JPanel Spielfeld_Gegner = new JPanel();
+		spielFeld_Gegner = new JPanel();
 
-		Spielfeld_Gegner.setLayout(new GridLayout(0, 10, 3, 3));
+		spielFeld_Gegner.setLayout(new GridLayout(0, 10, 3, 3));
 
-		for (JPanel jPanel : gegnerPanels) {
-			Spielfeld_Gegner.add(jPanel);
-		}
+		updateGegnerPanels(spielFeld_Gegner);
 
 		JPanel horizontal_Gegner = new JPanel();
 		horizontal_Gegner.setLayout(new GridLayout(0, 10, 3, 3));
@@ -230,7 +226,7 @@ public class GuiV1Frame extends JFrame {
 																300,
 																GroupLayout.PREFERRED_SIZE)
 														.addComponent(
-																Spielfeld_Gegner,
+																spielFeld_Gegner,
 																GroupLayout.PREFERRED_SIZE,
 																300,
 																GroupLayout.PREFERRED_SIZE))
@@ -268,7 +264,7 @@ public class GuiV1Frame extends JFrame {
 																gl_GegnerFeld
 																		.createSequentialGroup()
 																		.addComponent(
-																				Spielfeld_Gegner,
+																				spielFeld_Gegner,
 																				GroupLayout.PREFERRED_SIZE,
 																				300,
 																				GroupLayout.PREFERRED_SIZE)
@@ -318,8 +314,8 @@ public class GuiV1Frame extends JFrame {
 																Short.MAX_VALUE))
 										.addContainerGap()));
 
-		JPanel SpielFeld_Eigenes = new JPanel();
-		SpielFeld_Eigenes.setLayout(new GridLayout(0, 10, 3, 3));
+		spielFeld_Spieler = new JPanel();
+		spielFeld_Spieler.setLayout(new GridLayout(0, 10, 3, 3));
 
 		JPanel vertikal_Spieler = new JPanel();
 
@@ -350,7 +346,7 @@ public class GuiV1Frame extends JFrame {
 																300,
 																GroupLayout.PREFERRED_SIZE)
 														.addComponent(
-																SpielFeld_Eigenes,
+																spielFeld_Spieler,
 																GroupLayout.PREFERRED_SIZE,
 																300,
 																GroupLayout.PREFERRED_SIZE))
@@ -386,7 +382,7 @@ public class GuiV1Frame extends JFrame {
 																gl_EigenesFeld
 																		.createSequentialGroup()
 																		.addComponent(
-																				SpielFeld_Eigenes,
+																				spielFeld_Spieler,
 																				GroupLayout.PREFERRED_SIZE,
 																				300,
 																				GroupLayout.PREFERRED_SIZE)
@@ -541,9 +537,7 @@ public class GuiV1Frame extends JFrame {
 		JLabel label_19 = new JLabel("9");
 		panel_110.add(label_19);
 
-		for (JPanel jPanel : spielerPanels) {
-			SpielFeld_Eigenes.add(jPanel);
-		}
+		updateSpielerPanels(spielFeld_Spieler);
 
 		EigenesFeld.setLayout(gl_EigenesFeld);
 		contentPane.setLayout(gl_contentPane);
@@ -552,15 +546,13 @@ public class GuiV1Frame extends JFrame {
 
 	public void updateFenster() {
 
-		updateSpielerPanels();
-		updateGegnerPanels();
+		updateSpielerPanels(this.spielFeld_Spieler);
+		updateGegnerPanels(this.spielFeld_Gegner);
 		this.revalidate();
-		this.contentPane.revalidate();
 	}
 
-	private void updateSpielerPanels() {
+	private void updateSpielerPanels(JPanel spielFeld) {
 		List<JPanel> panels = new ArrayList<JPanel>();
-
 		for (int i = 9; i >= 0; i--) {
 			for (int j = 0; j < 10; j++) {
 				JPanel panel = new JPanel();
@@ -571,12 +563,14 @@ public class GuiV1Frame extends JFrame {
 			}
 
 		}
-		this.spielerPanels = panels;
+		spielFeld_Spieler.removeAll();
+		for (JPanel jPanel : panels) {
+			spielFeld.add(jPanel);
+		}
 	}
 
-	private void updateGegnerPanels() {
+	private void updateGegnerPanels(JPanel spielFeld) {
 		List<JPanel> panels = new ArrayList<JPanel>();
-
 		for (int i = 9; i >= 0; i--) {
 			for (int j = 0; j < 10; j++) {
 				JPanel panel = new JPanel();
@@ -592,7 +586,10 @@ public class GuiV1Frame extends JFrame {
 			}
 
 		}
-		this.gegnerPanels = panels;
+		spielFeld_Gegner.removeAll();
+		for (JPanel jPanel : panels) {
+			spielFeld.add(jPanel);
+		}
 	}
 
 }
