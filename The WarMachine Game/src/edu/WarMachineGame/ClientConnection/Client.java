@@ -1,10 +1,14 @@
 package edu.WarMachineGame.ClientConnection;
 
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import edu.WarMachineGame.IO.Ausgabe;
 import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.TestDrive.GameStarter;
 
 /**
  * 
@@ -47,46 +51,44 @@ public class Client {
 	 */
 	private Client(int port) {
 
-		String input = null;
 		int inputOption = 0;
 		boolean validInput = false;
-
-		System.out
-				.println("Wählen sie zwischen Host(1), Verbindung(2) oder Computergegner(3).");
-
 		while (!validInput) {
 			try {
-				input = Eingabe.getEingabe().getUserInput();
+				String[] options = new String[3];
+				options[0] = "Host";
+				options[1] = "Client";
+				options[2] = "Computergegner";
+				inputOption = Eingabe
+						.getEingabe()
+						.askOpstionsAsString(
+								"Initialisierung",
+								"Sind Sie Host oder Client oder wollen Sie nur gegen den Computer spielen?",
+								options);
 			} catch (Exception e) {
 				// Nothing
 			}
 
-			try {
-				inputOption = Integer.parseInt(input);
-			} catch (Exception e) {
-				Ausgabe.getAusgabe().printFalscheEingabe();
-				continue;
-			}
-
 			switch (inputOption) {
-			case 1:
+			case 0:
 				beTheHost(port);
 				setIsHost(true);
 				validInput = true;
 				break;
 
-			case 2:
+			case 1:
 				connectToHost(port);
 				validInput = true;
 				break;
-			case 3:
+			case 2:
 				setIsLocal(true);
 				setIsHost(true);
 				validInput = true;
 				break;
 
 			default:
-				Ausgabe.getAusgabe().printFalscheEingabe();
+				Ausgabe.getAusgabe().showFalscheEingabe();
+				;
 				break;
 			}
 
@@ -129,33 +131,37 @@ public class Client {
 		// Lesen der IP
 		while (!validIP) {
 			try {
-				System.out.println("Geben sie die IP des Gegners an: ");
-				ip = Eingabe.getEingabe().getUserInput();
+				ip = Eingabe.getEingabe().getUserInputFromDialog("IP-Adresse",
+						"Geben sie die IP des Gegners an");
 			} catch (Exception e) {
-				System.out.println("Fehler beim Lesen der Userdaten.");
+				Ausgabe.getAusgabe().showWarning("Fehler",
+						"Fehler beim Lesen der Userdaten.");
 				continue;
 			}
 
 			try {
+				GameStarter
+						.setIniStatus("Es wird versucht eine Verbindung herzustellen...");
 				socket = new Socket(ip, port);
 				validIP = true;
 			} catch (Exception e) {
-				System.out.println("Fehler bei der Serververbindung:" + e);
+				Ausgabe.getAusgabe().showWarning("Fehler",
+						"Fehler bei der Serververbindung:" + e);
 				validIP = false;
 				continue;
 			}
 		}
 
-		System.out.println("Verbindung akzeptiert " + socket.getInetAddress()
-				+ ":" + socket.getPort() + "\n");
+		GameStarter.setIniStatus("Verbindung akzeptiert "
+				+ socket.getInetAddress() + ":" + socket.getPort());
 
 		// Erstellung der IO-Stroeme
 		try {
 			Sinput = new ObjectInputStream(socket.getInputStream());
 			Soutput = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
-			System.out
-					.println("Exception beim Erstellen des I/O-Streams: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Exception beim Erstellen des I/O-Streams: " + e);
 		}
 	}
 
@@ -172,8 +178,7 @@ public class Client {
 
 		try {
 			serverSocket = new ServerSocket(port);
-			System.out.println("Host wartet auf anderen Spieler ...");
-
+			GameStarter.setIniStatus("Warte auf andere Spieler...");
 			while (true) {
 				socket = serverSocket.accept(); // accept connection
 				if (socket.isConnected())
@@ -181,21 +186,22 @@ public class Client {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Exception beim Erstellen des Socket: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Exception beim Erstellen des Socket: " + e);
 		}
 
-		System.out.println("Versuche I/O-Stream zu erstelllen ...");
+		GameStarter.setIniStatus("Versuche I/O-Stream zu erstelllen ...");
 		try {
 			// create output
 			Soutput = new ObjectOutputStream(socket.getOutputStream());
 			Soutput.flush();
 			Sinput = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			System.out
-					.println("Exception beim Erstellen des I/O-Streams: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Exception beim Erstellen des I/O-Streams: " + e);
 			return;
 		}
-		System.out.println("Verbindung hergestellt.");
+		GameStarter.setIniStatus("Erfolgreich Verbindung hergestellt.");
 	}
 
 	/**
@@ -210,7 +216,8 @@ public class Client {
 			Soutput.writeObject(input);
 			Soutput.flush();
 		} catch (IOException e) {
-			System.out.println("Fehler beim Schreiben zum Socket: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Fehler beim Schreiben zum Socket: " + e);
 		}
 	}
 
@@ -223,11 +230,11 @@ public class Client {
 	 */
 	public String getPlayerInput() {
 		String response = "invalid";
-		System.out.println("Warte auf Gegner ...");
 		try {
 			response = (String) Sinput.readObject();
 		} catch (Exception e) {
-			System.out.println("Problem bei der Spielerabfrage: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Problem bei der Spielerabfrage: " + e);
 			closeConnection();
 		}
 		return response;
@@ -244,7 +251,8 @@ public class Client {
 			Sinput.close();
 			Soutput.close();
 		} catch (Exception e) {
-			System.out.println("Fehler beim Schliessen der Verbindung: " + e);
+			Ausgabe.getAusgabe().showWarning("Fehler",
+					"Fehler beim Schliessen der Verbindung: " + e);
 		}
 	}
 

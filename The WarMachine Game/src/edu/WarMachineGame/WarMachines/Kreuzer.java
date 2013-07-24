@@ -6,6 +6,7 @@ public class Kreuzer extends WarMachine {
 		this.laenge = 3;
 		this.breite = 1;
 		this.maxHits = 3;
+		this.bezeichnung = "Kreuzer";
 	}
 
 }

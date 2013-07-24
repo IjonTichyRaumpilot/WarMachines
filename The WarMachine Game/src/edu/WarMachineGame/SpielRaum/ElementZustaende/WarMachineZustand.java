@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import edu.WarMachineGame.Interfaces.ElementZustand;
 import edu.WarMachineGame.SpielRaum.Element;
+import edu.WarMachineGame.TestDrive.GameStarter;
 
 public class WarMachineZustand implements ElementZustand {
 
@@ -18,9 +19,9 @@ public class WarMachineZustand implements ElementZustand {
 		element.getWarMachine().hit();
 		element.setZustand(new WarMachineGetroffenZustand(element));
 		if (element.getWarMachine().isVersenkt())
-			System.out.println("Versenkt!!!");
+			GameStarter.setSpielStatus("Versenkt!!!");
 		else
-			System.out.println("Getroffen!!!");
+			GameStarter.setSpielStatus("Getroffen!!!");
 		return true;
 	}
 

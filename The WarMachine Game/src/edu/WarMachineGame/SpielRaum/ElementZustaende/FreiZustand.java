@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import edu.WarMachineGame.Interfaces.ElementZustand;
 import edu.WarMachineGame.SpielRaum.Element;
+import edu.WarMachineGame.TestDrive.GameStarter;
 
 public class FreiZustand implements ElementZustand {
 
@@ -16,7 +17,7 @@ public class FreiZustand implements ElementZustand {
 	@Override
 	public boolean shoot() {
 		element.setZustand(new FreiBereitsBeschossenZustand(element));
-		System.out.println("Kein Schiff getroffen!");
+		GameStarter.setSpielStatus("Kein Schiff getroffen!");
 		return true;
 	}
 

@@ -6,5 +6,6 @@ public class Schlauchboot extends WarMachine {
 		this.laenge = 1;
 		this.breite = 1;
 		this.maxHits = 1;
+		this.bezeichnung = "Schlauchboot";
 	}
 }

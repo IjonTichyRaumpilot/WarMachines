@@ -9,9 +9,14 @@ public abstract class WarMachine {
 	protected int breite;
 	protected int maxHits;
 	protected int hitCounter = 0;
+	protected String bezeichnung;
 
 	public WarMachine() {
 
+	}
+
+	public String getBezeichnung() {
+		return bezeichnung;
 	}
 
 	public void setWarmachineElements(SpielFeld spielFeld)

@@ -1,10 +1,15 @@
 package edu.WarMachineGame.IO;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import edu.WarMachineGame.Enumerations.Ausrichtung;
 import edu.WarMachineGame.SpielRaum.Koordinate;
-import edu.WarMachineGame.SpielRaum.SpielFeld;
+import edu.WarMachineGame.TestDrive.GameStarter;
 
 /**
  * 
@@ -125,6 +130,64 @@ public class Eingabe {
 				new InputStreamReader(System.in));
 		String input = bin.readLine();
 		return input;
+	}
+
+	/**
+	 * Diese Methode liest den User-Input aus einem Dialog.
+	 * 
+	 * @param titel
+	 * @param message
+	 * @return
+	 * @author Arthur
+	 */
+	public String getUserInputFromDialog(String titel, String message) {
+		JFrame frame = new JFrame(titel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		String s = (String) JOptionPane.showInputDialog(frame, message);
+		return s;
+	}
+
+	/**
+	 * Diese Methode gibt dem User mittels eines Dialogs entsprechende
+	 * Auswahlmöglichkeiten.
+	 * 
+	 * @param titel
+	 *            Dialogtitel
+	 * @param message
+	 *            Nachricht an den User
+	 * @param options
+	 *            Beschriftung der Buttons. Der Integer-Wert des Arrays ist der
+	 *            return-Wert der Funktion
+	 * @return Index
+	 */
+	public int askOpstionsAsString(String titel, String message,
+			String[] options) {
+		JFrame frame = new JFrame(titel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int n = JOptionPane.showOptionDialog(frame, message, titel,
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, null);
+		return n;
+	}
+
+	/**
+	 * Diese Funktion wartet auf eine neue Koordinate auf der GUI vom User.
+	 * 
+	 * @return String
+	 * @author Arthur
+	 */
+	public String getUserKoordinateInputFromGUI() {
+		String temp = GameStarter.getInput();
+		String neu = temp;
+		while (temp.contentEquals(neu)) {
+			neu = GameStarter.getInput();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+		}
+		return neu;
+
 	}
 
 	/**

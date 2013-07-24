@@ -5,8 +5,13 @@ import java.util.List;
 
 import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.*;
-import edu.WarMachineGame.WarMachines.*;
+import edu.WarMachineGame.IO.Ausgabe;
+import edu.WarMachineGame.IO.Eingabe;
+import edu.WarMachineGame.TestDrive.GameStarter;
+import edu.WarMachineGame.WarMachines.Fregatte;
+import edu.WarMachineGame.WarMachines.Kreuzer;
+import edu.WarMachineGame.WarMachines.Schlauchboot;
+import edu.WarMachineGame.WarMachines.WarMachine;
 
 /**
  * 
@@ -58,12 +63,15 @@ public class RemoteSpieler implements Spieler {
 	@Override
 	public void place() {
 
-		ausgabe.printSeparator();
-		System.out.println("Gegner platziert das erste Schiff.");
+		// ausgabe.printSeparator();
+		GameStarter
+				.setIniStatus("Bitte warten ... Gegner platziert das erste Schiff.");
 		warMachine.add(platziereWarMachine(new Schlauchboot()));
-		System.out.println("Gegner platziert das zweite Schiff.");
+		GameStarter
+				.setIniStatus("Bitte warten ... Gegner platziert das zweite Schiff.");
 		warMachine.add(platziereWarMachine(new Fregatte()));
-		System.out.println("Gegner platziert das dritte Schiff.");
+		GameStarter
+				.setIniStatus("Bitte warten ... Gegner platziert das dritte Schiff.");
 		warMachine.add(platziereWarMachine(new Kreuzer()));
 
 	}
@@ -81,7 +89,7 @@ public class RemoteSpieler implements Spieler {
 		boolean invalidInput = true;
 		String input = null;
 
-		ausgabe.printSeparator();
+		// ausgabe.printSeparator();
 
 		// Einleseschleife
 		while (invalidInput) {
@@ -93,13 +101,13 @@ public class RemoteSpieler implements Spieler {
 
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
 			if (!gegner.getSpielfeld().validKoordinaten(zielKoordinate)) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 			invalidInput = false;
 			invalidInput = !gegner.getSpielfeld().shoot(zielKoordinate);
 			if (invalidInput) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 			} else
 				isGameOver();
 
@@ -148,14 +156,14 @@ public class RemoteSpieler implements Spieler {
 			}
 			String[] argumente = input.split(",");
 			if (argumente.length < 3) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
 					+ "," + argumente[1].toString());
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
 			if (!eingabe.validAusrichtung(platzAusrichtung)) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 
@@ -164,8 +172,8 @@ public class RemoteSpieler implements Spieler {
 						platzAusrichtung);
 				invalidInput = false;
 			} catch (Exception e) {
-				ausgabe.printFalscheEingabe();
-				System.out.println("Exception: " + e);
+				ausgabe.showFalscheEingabe();
+				Ausgabe.getAusgabe().showWarning("Fehler", "Exception: " + e);
 				invalidInput = true;
 			}
 

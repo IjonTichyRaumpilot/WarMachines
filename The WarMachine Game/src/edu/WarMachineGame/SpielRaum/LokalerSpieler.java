@@ -5,10 +5,16 @@ import java.util.List;
 
 import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.*;
+import edu.WarMachineGame.IO.Ausgabe;
+import edu.WarMachineGame.IO.Eingabe;
 import edu.WarMachineGame.Interfaces.Spielerstatus;
-import edu.WarMachineGame.Spielerstatus.*;
-import edu.WarMachineGame.WarMachines.*;
+import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
+import edu.WarMachineGame.Spielerstatus.StatusVerloren;
+import edu.WarMachineGame.TestDrive.GameStarter;
+import edu.WarMachineGame.WarMachines.Fregatte;
+import edu.WarMachineGame.WarMachines.Kreuzer;
+import edu.WarMachineGame.WarMachines.Schlauchboot;
+import edu.WarMachineGame.WarMachines.WarMachine;
 
 /**
  * 
@@ -62,23 +68,21 @@ public class LokalerSpieler implements Spieler {
 	@Override
 	public void place() {
 
-		ausgabe.printSeparator();
-		System.out
-				.println("Platzieren sie ihre Schiffe(Laenge).\n"
-						+ "Geben sie dazu zuerst die Koordinate(x,y) fÃ¼r das Schiff an\n"
-						+ "und danach die Ausrichtung, wobei:\n"
-						+ "nach rechts  =  1\n" + "nach links   = -1\n"
-						+ "nach oben    =  2\n" + "nach unten   = -2");
-		ausgabe.printSeparator();
+		// ausgabe.printSeparator();
+		GameStarter.setIniStatus("Platziere Sie die Schiffe.");
+		Ausgabe.getAusgabe()
+				.showMessage(
+						"Platzierung der Schiffe",
+						"Platzieren sie ihre Schiffe(Laenge).\n"
+								+ "Geben sie dazu zuerst die Koordinate(x,y) für das Schiff an\n"
+								+ "und danach die Ausrichtung, wobei:\n"
+								+ "nach rechts  =  1\n"
+								+ "nach links     = -1\n"
+								+ "nach oben     =  2\n" + "nach unten    = -2");
+		// ausgabe.printSeparator();
 
-		System.out.println(this.getName()
-				+ ", platzieren sie das erste Schiff(1): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Schlauchboot()));
-		System.out.println(this.getName()
-				+ ", platzieren sie das zweite Schiff(2): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Fregatte()));
-		System.out.println(this.getName()
-				+ ", platzieren sie das dritte Schiff(3): x,y,Richtung");
 		warMachine.add(platziereWarMachine(new Kreuzer()));
 
 	}
@@ -96,26 +100,26 @@ public class LokalerSpieler implements Spieler {
 		boolean invalidInput = true;
 		String input = null;
 
-		ausgabe.printSeparator();
-		System.out.println("Geben sie das Ziel an: x,y");
+		// ausgabe.printSeparator();
+		GameStarter.setSpielStatus("Klicken Sie auf das Ziel!");
 
 		// Einleseschleife
 		while (invalidInput) {
 			try {
-				input = eingabe.getUserInput();
+				input = eingabe.getUserKoordinateInputFromGUI();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			Koordinate zielKoordinate = eingabe.string2Koord(input);
 			if (!gegner.getSpielfeld().validKoordinaten(zielKoordinate)) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 			invalidInput = false;
 			invalidInput = !gegner.getSpielfeld().shoot(zielKoordinate);
 			if (invalidInput) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 			} else
 				isGameOver();
 
@@ -156,8 +160,9 @@ public class LokalerSpieler implements Spieler {
 		}
 		if (alleVersenkt)
 			spielerstatus = new StatusVerloren();
-		ausgabe.printSeparator();
-		System.out.println("Sie haben " + spielerstatus.getSpielerstatus());
+		// ausgabe.printSeparator();
+		ausgabe.showGameOverMessage("Game Over!",
+				"Sie haben " + spielerstatus.getSpielerstatus());
 	}
 
 	/**
@@ -176,20 +181,26 @@ public class LokalerSpieler implements Spieler {
 
 		while (invalidInput) {
 			try {
-				input = eingabe.getUserInput();
+				input = eingabe.getUserInputFromDialog(
+						newWarMachine.getBezeichnung(), this.getName()
+								+ " bitte platzieren Sie ihr Schiff: "
+								+ newWarMachine.getBezeichnung() + " ["
+								+ newWarMachine.getLaenge() + ","
+								+ newWarMachine.getBreite() + "]"
+								+ "\nFormat: x,y,Richtung");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			String[] argumente = input.split(",");
 			if (argumente.length < 3) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 			platzKoordinate = eingabe.string2Koord(argumente[0].toString()
 					+ "," + argumente[1].toString());
 			platzAusrichtung = eingabe.string2Ausrichtung(argumente[2]);
 			if (!eingabe.validAusrichtung(platzAusrichtung)) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				continue;
 			}
 
@@ -198,7 +209,7 @@ public class LokalerSpieler implements Spieler {
 						platzAusrichtung);
 				invalidInput = false;
 			} catch (Exception e) {
-				ausgabe.printFalscheEingabe();
+				ausgabe.showFalscheEingabe();
 				invalidInput = true;
 			}
 
