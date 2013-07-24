@@ -58,9 +58,9 @@ public class SpielFeld implements ShootElement, PlaceWarMachine {
 	}
 
 	private boolean validPlacementXPLUS(int laenge, int breite, Koordinate koord) {
-		if (koord.getX() + laenge - 1 <= Regeln.getSpielFeldGroesse().getX()
+		if (koord.getX() + laenge - 1 <= Regeln.getSpielFeldGroesse().getX() - 1
 				&& koord.getY() + breite - 1 <= Regeln.getSpielFeldGroesse()
-						.getY())
+						.getY() - 1)
 			return true;
 		return false;
 	}
@@ -75,14 +75,14 @@ public class SpielFeld implements ShootElement, PlaceWarMachine {
 	private boolean validPlacementYPLUS(int laenge, int breite, Koordinate koord) {
 		if (koord.getX() - breite + 1 >= 0
 				&& koord.getY() + laenge - 1 <= Regeln.getSpielFeldGroesse()
-						.getY())
+						.getY() - 1)
 			return true;
 		return false;
 	}
 
 	private boolean validPlacementYMINUS(int laenge, int breite,
 			Koordinate koord) {
-		if (koord.getX() + breite - 1 <= Regeln.getSpielFeldGroesse().getX()
+		if (koord.getX() + breite - 1 <= Regeln.getSpielFeldGroesse().getX() - 1
 				&& koord.getY() - laenge + 1 >= 0)
 			return true;
 		return false;
