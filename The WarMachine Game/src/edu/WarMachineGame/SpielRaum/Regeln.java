@@ -31,8 +31,8 @@ public class Regeln {
 	}
 
 	private static void setSpielFeldGroesse() {
-		groesse.setX(10);
-		groesse.setY(10);
+		groesse.setX(20);
+		groesse.setY(20);
 	}
 
 	private static void setAnzahlWarMachines() {

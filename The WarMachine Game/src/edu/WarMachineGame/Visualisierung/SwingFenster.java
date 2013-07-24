@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.Spieler;
 
 public class SwingFenster implements Visualisierbar {
@@ -35,8 +36,8 @@ public class SwingFenster implements Visualisierbar {
 		JPanel panel = new JPanel();
 		JPanel mainPanel = new JPanel(new GridLayout(11, 11, 20, 20));
 
-		for (int i = 9; i >= 0; i--) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = Regeln.getSpielFeldGroesse().getY() - 1; i >= 0; i--) {
+			for (int j = 0; j < Regeln.getSpielFeldGroesse().getX(); j++) {
 
 				JButton button = new JButton(j + " - " + i);
 				button.setBackground(spieler.getSpielfeld().getElements()[j][i]

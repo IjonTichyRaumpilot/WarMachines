@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import edu.WarMachineGame.SpielRaum.Regeln;
 import edu.WarMachineGame.SpielRaum.Spieler;
 import edu.WarMachineGame.SpielRaum.ElementZustaende.FreiZustand;
 import edu.WarMachineGame.TestDrive.GameStarter;
@@ -63,9 +64,10 @@ public class GuiV1Frame extends JFrame {
 		lblGegnerSpielfeld.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JPanel vertikal_Gegner = new JPanel();
-		vertikal_Gegner.setLayout(new GridLayout(10, 0, 3, 3));
+		vertikal_Gegner.setLayout(new GridLayout(Regeln.getSpielFeldGroesse()
+				.getY(), 0, 3, 3));
 
-		for (int i = 9; i >= 0; i--) {
+		for (int i = Regeln.getSpielFeldGroesse().getY() - 1; i >= 0; i--) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.orange);
 			JLabel label = new JLabel(Integer.toString(i));
@@ -75,14 +77,16 @@ public class GuiV1Frame extends JFrame {
 
 		spielFeld_Gegner = new JPanel();
 
-		spielFeld_Gegner.setLayout(new GridLayout(0, 10, 3, 3));
+		spielFeld_Gegner.setLayout(new GridLayout(0, Regeln
+				.getSpielFeldGroesse().getX(), 3, 3));
 		GameStarter.setSpielFeld_Gegner(spielFeld_Gegner);
 		updateGegnerPanels(spielFeld_Gegner);
 
 		JPanel horizontal_Gegner = new JPanel();
-		horizontal_Gegner.setLayout(new GridLayout(0, 10, 3, 3));
+		horizontal_Gegner.setLayout(new GridLayout(0, Regeln
+				.getSpielFeldGroesse().getX(), 3, 3));
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < Regeln.getSpielFeldGroesse().getX(); i++) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.orange);
 			JLabel label = new JLabel(Integer.toString(i));
@@ -253,7 +257,8 @@ public class GuiV1Frame extends JFrame {
 		GameStarter.setScrollBar(scrollBarVertical);
 		ScrollAusgabe.setViewportView(Ausgabe);
 		spielFeld_Spieler = new JPanel();
-		spielFeld_Spieler.setLayout(new GridLayout(0, 10, 3, 3));
+		spielFeld_Spieler.setLayout(new GridLayout(0, Regeln
+				.getSpielFeldGroesse().getX(), 3, 3));
 		GameStarter.setSpielFeld_Spieler(spielFeld_Spieler);
 		JPanel vertikal_Spieler = new JPanel();
 
@@ -332,9 +337,10 @@ public class GuiV1Frame extends JFrame {
 																				30,
 																				GroupLayout.PREFERRED_SIZE)))
 										.addContainerGap()));
-		vertikal_Spieler.setLayout(new GridLayout(10, 0, 3, 3));
+		vertikal_Spieler.setLayout(new GridLayout(Regeln.getSpielFeldGroesse()
+				.getY(), 0, 3, 3));
 
-		for (int i = 9; i >= 0; i--) {
+		for (int i = Regeln.getSpielFeldGroesse().getY() - 1; i >= 0; i--) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.orange);
 			JLabel label = new JLabel(Integer.toString(i));
@@ -342,9 +348,10 @@ public class GuiV1Frame extends JFrame {
 			vertikal_Spieler.add(panel);
 		}
 
-		horizontal_Spieler.setLayout(new GridLayout(0, 10, 3, 3));
+		horizontal_Spieler.setLayout(new GridLayout(0, Regeln
+				.getSpielFeldGroesse().getX(), 3, 3));
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < Regeln.getSpielFeldGroesse().getX(); i++) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.orange);
 			JLabel label = new JLabel(Integer.toString(i));
@@ -368,8 +375,8 @@ public class GuiV1Frame extends JFrame {
 
 	private void updateSpielerPanels(JPanel spielFeld) {
 		List<JPanel> panels = new ArrayList<JPanel>();
-		for (int i = 9; i >= 0; i--) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = Regeln.getSpielFeldGroesse().getY() - 1; i >= 0; i--) {
+			for (int j = 0; j < Regeln.getSpielFeldGroesse().getX(); j++) {
 				JPanel panel = new JPanel();
 				panel.setBackground(spieler.getSpielfeld().getElements()[j][i]
 						.getElementColor());
@@ -386,8 +393,8 @@ public class GuiV1Frame extends JFrame {
 
 	private void updateGegnerPanels(JPanel spielFeld) {
 		List<JPanel> panels = new ArrayList<JPanel>();
-		for (int i = 9; i >= 0; i--) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = Regeln.getSpielFeldGroesse().getY() - 1; i >= 0; i--) {
+			for (int j = 0; j < Regeln.getSpielFeldGroesse().getX(); j++) {
 				JPanel panel = new JPanel();
 				if (gegner.getSpielfeld().getElements()[j][i]
 						.getZustandsIndex() == 2) {
