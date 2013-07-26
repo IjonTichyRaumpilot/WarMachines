@@ -3,27 +3,16 @@ package edu.WarMachineGame.SpielRaum;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.WarMachineGame.ClientConnection.Client;
 import edu.WarMachineGame.Enumerations.Ausrichtung;
-import edu.WarMachineGame.IO.Ausgabe;
-import edu.WarMachineGame.IO.Eingabe;
-import edu.WarMachineGame.Interfaces.Spielerstatus;
-import edu.WarMachineGame.Spielerstatus.StatusGewonnen;
-import edu.WarMachineGame.Spielerstatus.StatusVerloren;
-import edu.WarMachineGame.WarMachines.Fregatte;
-import edu.WarMachineGame.WarMachines.Kreuzer;
-import edu.WarMachineGame.WarMachines.Schlauchboot;
-import edu.WarMachineGame.WarMachines.WarMachine;
+import edu.WarMachineGame.IO.*;
+import edu.WarMachineGame.WarMachines.*;
 
 public class ComputerSpieler implements Spieler {
 
 	// --------- VARIABLES --------- //
 	private String name;
 	private Eingabe eingabe;
-	private Ausgabe ausgabe;
-	private Client client;
 	private SpielFeld spielfeld;
-	private Spielerstatus spielerstatus;
 	private List<WarMachine> warMachine = new ArrayList<WarMachine>();
 
 	// ----------------------------- //
@@ -37,11 +26,8 @@ public class ComputerSpieler implements Spieler {
 	 */
 	public ComputerSpieler(String name) {
 		this.name = name;
-		this.client = Client.getClient();
 		this.spielfeld = new SpielFeld();
 		this.eingabe = Eingabe.getEingabe();
-		this.ausgabe = Ausgabe.getAusgabe();
-		this.spielerstatus = new StatusGewonnen();
 	}
 
 	/*
@@ -180,8 +166,8 @@ public class ComputerSpieler implements Spieler {
 
 	private String generateRandomKoordinate() {
 
-		int maxX = Regeln.getRegeln().getSpielFeldGroesse().getX();
-		int maxY = Regeln.getRegeln().getSpielFeldGroesse().getY();
+		int maxX = Regeln.getRegeln().getSpielFeldGroesse().getX() - 1;
+		int maxY = Regeln.getRegeln().getSpielFeldGroesse().getY() - 1;
 
 		// Min + (int)(Math.random() * ((Max - Min) + 1))
 		maxX = (int) (Math.random() * (maxX + 1));
